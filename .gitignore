@@ -9,3 +9,7 @@ gradlew
 gradlew.bat
 build/
 build/**
+
+# Specific files
+img/logo-icon.svg
+update-icon.bat
