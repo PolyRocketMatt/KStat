@@ -48,6 +48,7 @@ All distributions offer the following methods:
 Discrete Distributions:
 
 - Bernoulli - `Bernoulli(seed: Int, p: Double)`
+- Binomial - `Binomial(n: Int, p: Double)`
 
 ## Documentation
 
