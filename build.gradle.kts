@@ -19,7 +19,7 @@ tasks.test {
 }
 
 tasks.dokkaHtml {
-    outputDirectory.set(file("dokka"))
+    outputDirectory.set(file("docs"))
 }
 
 kotlin {
