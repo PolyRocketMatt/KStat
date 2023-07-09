@@ -1,8 +1,11 @@
-package com.github.polyrocketmatt.kstat.distributions
+package com.github.polyrocketmatt.kstat.distributions.discrete
 
+import com.github.polyrocketmatt.kstat.Functions.binomial
+import com.github.polyrocketmatt.kstat.Functions.entropyLog
 import com.github.polyrocketmatt.kstat.IRange
 import com.github.polyrocketmatt.kstat.SingleRange
-import com.github.polyrocketmatt.kstat.binomial
+import com.github.polyrocketmatt.kstat.distributions.Discrete
+import com.github.polyrocketmatt.kstat.distributions.Distribution
 import com.github.polyrocketmatt.kstat.exception.KStatException
 import kotlin.jvm.Throws
 import kotlin.math.floor
@@ -105,16 +108,13 @@ class BinomialDistribution(
 
     override fun kurtosis(): Double = kurtosis
 
-    override fun entropy(type: EntropyType): Double = when(type) {
-        EntropyType.SHANNON     -> 0.5 * log2(2.0 * Math.PI * Math.E * variance)
-        EntropyType.NATURAL     -> 0.5 * ln(2.0 * Math.PI * Math.E * variance)
-    }
+    override fun entropy(type: EntropyType): Double = 0.5 * entropyLog(2.0 * Math.PI * Math.E * variance, type)
 
     override fun median(): SingleRange = SingleRange(floor(n * p))
 
     override fun mode(): SingleRange = SingleRange(floor((n + 1) * p))
 
-    override fun mad(): Double = throw KStatException("MAD is not implemented for the binomial distribution")
+    override fun mad(): Double = throw KStatException("MAD is not implemented for discrete distributions")
 
     override fun moment(n: Int): Double = momentGeneratingFunction().invoke(n)
 

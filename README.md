@@ -49,6 +49,7 @@ Discrete Distributions:
 
 - Bernoulli - `Bernoulli(seed: Int, p: Double)`
 - Binomial - `Binomial(n: Int, p: Double)`
+- Poisson - `Poisson(rate: Int)`
 
 ## Documentation
 

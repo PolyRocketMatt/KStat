@@ -1,9 +1,12 @@
-package com.github.polyrocketmatt.kstat.distributions
+package com.github.polyrocketmatt.kstat.distributions.discrete
 
 import com.github.polyrocketmatt.kstat.DiscreteRange
+import com.github.polyrocketmatt.kstat.Functions.entropyLog
 import com.github.polyrocketmatt.kstat.IRange
 import com.github.polyrocketmatt.kstat.Range
 import com.github.polyrocketmatt.kstat.SingleRange
+import com.github.polyrocketmatt.kstat.distributions.Discrete
+import com.github.polyrocketmatt.kstat.distributions.Distribution
 import com.github.polyrocketmatt.kstat.exception.KStatException
 import kotlin.math.ln
 import kotlin.math.log2
@@ -78,10 +81,7 @@ class BernoulliDistribution(
 
     override fun kurtosis(): Double = kurtosis
 
-    override fun entropy(type: EntropyType): Double = when(type) {
-        EntropyType.SHANNON     -> -q * log2(q) - p * log2(p)
-        EntropyType.NATURAL     -> -q * ln(q) - p * ln(p)
-    }
+    override fun entropy(type: EntropyType): Double = -q * entropyLog(q, type) - p * entropyLog(p, type)
 
     override fun median(): IRange {
         return if (p < 0.5)

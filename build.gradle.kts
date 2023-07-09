@@ -37,6 +37,7 @@ tasks.withType<org.jetbrains.dokka.gradle.DokkaTask>().configureEach {
         footerMessage = "© 2023 Matthias Kovacic"
     }
 
+    /* Dokka sucks sometimes...
     dokkaSourceSets {
         configureEach {
             perPackageOption {
@@ -45,6 +46,8 @@ tasks.withType<org.jetbrains.dokka.gradle.DokkaTask>().configureEach {
             }
         }
     }
+
+     */
 }
 
 kotlin {
