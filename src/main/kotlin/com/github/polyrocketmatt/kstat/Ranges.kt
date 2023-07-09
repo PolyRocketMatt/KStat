@@ -188,6 +188,13 @@ class DiscreteRange(vararg val values: Double) : AbstractRange(values.min(), val
         return result
     }
 
+    /**
+     * Returns the values of this range as a double array.
+     *
+     * @return The values of this range as a double array
+     */
+    fun toDoubleArray(): DoubleArray = values
+
     override fun toString(): String {
         return values.joinToString(prefix = "[", postfix = "]")
     }
@@ -215,6 +222,13 @@ class ContinuousRange(val values: DoubleArray, val accuracy: Double = 0.01) : Ab
     override fun difference(range: IRange): List<ContinuousRange> {
         throw KStatException("Cannot difference continuous ranges")
     }
+
+    /**
+     * Returns the values of this range as a double array.
+     *
+     * @return The values of this range as a double array
+     */
+    fun toDoubleArray(): DoubleArray = values
 
     override fun toString(): String {
         return values.joinToString(prefix = "[", postfix = "]")
@@ -253,6 +267,13 @@ class SingleRange(val value: Double) : AbstractRange(value, Double.POSITIVE_INFI
         if (range !is SingleRange) throw KStatException("Range must be of type SingleRange")
         return if (range.value == value) listOf() else listOf(DiscreteRange(value))
     }
+
+    /**
+     * Returns the value of this range as a double.
+     *
+     * @return The value of this range as a double
+     */
+    fun toDouble(): Double = value
 
     override fun toString(): String {
         return "[$value]"
