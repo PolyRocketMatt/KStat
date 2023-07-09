@@ -13,3 +13,6 @@ build/**
 # Specific files
 img/logo-icon.svg
 update-icon.bat
+
+# Runtime file
+src/main/kotlin/com/github/polyrocketmatt/kstat/Test.kt

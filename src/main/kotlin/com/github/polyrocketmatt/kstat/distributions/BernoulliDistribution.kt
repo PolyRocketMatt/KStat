@@ -1,7 +1,6 @@
 package com.github.polyrocketmatt.kstat.distributions
 
 import com.github.polyrocketmatt.kstat.DiscreteRange
-import com.github.polyrocketmatt.kstat.EntropyType
 import com.github.polyrocketmatt.kstat.IRange
 import com.github.polyrocketmatt.kstat.Range
 import com.github.polyrocketmatt.kstat.SingleRange

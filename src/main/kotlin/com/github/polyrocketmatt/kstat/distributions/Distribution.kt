@@ -1,6 +1,5 @@
 package com.github.polyrocketmatt.kstat.distributions
 
-import com.github.polyrocketmatt.kstat.EntropyType
 import com.github.polyrocketmatt.kstat.IRange
 import com.github.polyrocketmatt.kstat.exception.KStatException
 import kotlin.jvm.Throws
@@ -196,5 +195,19 @@ abstract class Distribution(private val seed: Int) {
      */
     @Throws(KStatException::class)
     abstract fun fisherInformation(): Double
+
+    /**
+     * Types of entropy.
+     *
+     * @since 1.0.0
+     * @author Matthias Kovacic
+     * @see Distribution.entropy
+     */
+    enum class EntropyType {
+
+        SHANNON,
+        NATURAL
+
+    }
 
 }
