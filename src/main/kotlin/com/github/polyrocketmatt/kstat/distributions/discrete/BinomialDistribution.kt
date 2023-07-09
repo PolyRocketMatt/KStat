@@ -1,12 +1,13 @@
 package com.github.polyrocketmatt.kstat.distributions.discrete
 
+import com.github.polyrocketmatt.kstat.Constants.E
+import com.github.polyrocketmatt.kstat.Constants.TAU
 import com.github.polyrocketmatt.kstat.Functions.binomial
 import com.github.polyrocketmatt.kstat.Functions.entropyLog
-import com.github.polyrocketmatt.kstat.IRange
-import com.github.polyrocketmatt.kstat.SingleRange
 import com.github.polyrocketmatt.kstat.distributions.Discrete
 import com.github.polyrocketmatt.kstat.distributions.Distribution
 import com.github.polyrocketmatt.kstat.exception.KStatException
+import com.github.polyrocketmatt.kstat.range.SingleRange
 import kotlin.jvm.Throws
 import kotlin.math.floor
 import kotlin.math.pow
@@ -81,7 +82,7 @@ class BinomialDistribution(
         return SingleRange(sum)
     }
 
-    override fun quantile(x: Double): IRange {
+    override fun quantile(x: Double): SingleRange {
         var cumulativeProbability = 0.0
         var k = 0
         while (cumulativeProbability <= p && k <= n) {
@@ -101,7 +102,7 @@ class BinomialDistribution(
 
     override fun kurtosis(): Double = kurtosis
 
-    override fun entropy(type: EntropyType): Double = 0.5 * entropyLog(2.0 * Math.PI * Math.E * variance, type)
+    override fun entropy(type: EntropyType): Double = 0.5 * entropyLog(TAU * E * variance, type)
 
     override fun median(): SingleRange = SingleRange(floor(n * p))
 

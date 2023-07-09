@@ -1,13 +1,13 @@
 package com.github.polyrocketmatt.kstat.distributions.discrete
 
-import com.github.polyrocketmatt.kstat.DiscreteRange
 import com.github.polyrocketmatt.kstat.Functions.entropyLog
-import com.github.polyrocketmatt.kstat.IRange
-import com.github.polyrocketmatt.kstat.Range
-import com.github.polyrocketmatt.kstat.SingleRange
 import com.github.polyrocketmatt.kstat.distributions.Discrete
 import com.github.polyrocketmatt.kstat.distributions.Distribution
 import com.github.polyrocketmatt.kstat.exception.KStatException
+import com.github.polyrocketmatt.kstat.range.DiscreteRange
+import com.github.polyrocketmatt.kstat.range.IRange
+import com.github.polyrocketmatt.kstat.range.Range
+import com.github.polyrocketmatt.kstat.range.SingleRange
 import kotlin.math.pow
 import kotlin.math.sqrt
 

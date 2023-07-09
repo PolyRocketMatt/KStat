@@ -6,10 +6,10 @@ import com.github.polyrocketmatt.kstat.Constants.TAU
 import com.github.polyrocketmatt.kstat.Functions.entropyLog
 import com.github.polyrocketmatt.kstat.Functions.erf
 import com.github.polyrocketmatt.kstat.Functions.erfc
-import com.github.polyrocketmatt.kstat.SingleRange
 import com.github.polyrocketmatt.kstat.distributions.Continuous
 import com.github.polyrocketmatt.kstat.distributions.Distribution
 import com.github.polyrocketmatt.kstat.exception.KStatException
+import com.github.polyrocketmatt.kstat.range.SingleRange
 import kotlin.math.cos
 import kotlin.math.exp
 import kotlin.math.ln
