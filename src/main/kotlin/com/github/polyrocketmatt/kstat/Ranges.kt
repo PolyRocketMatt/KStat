@@ -2,6 +2,12 @@ package com.github.polyrocketmatt.kstat
 
 import com.github.polyrocketmatt.kstat.exception.KStatException
 
+/**
+ * Represents a range.
+ *
+ * @since 1.0.0
+ * @author Matthias Kovacic
+ */
 interface IRange
 
 /**
