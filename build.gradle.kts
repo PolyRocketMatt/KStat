@@ -23,5 +23,5 @@ tasks.dokkaHtml {
 }
 
 kotlin {
-    jvmToolchain(8)
+    jvmToolchain(17)
 }

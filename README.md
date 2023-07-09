@@ -48,3 +48,12 @@ All distributions offer the following methods:
 Discrete Distributions:
 
 - Bernoulli - `Bernoulli(seed: Int, p: Double)`
+
+## Documentation
+
+The documentation can be found [here](https://kstat-documentation.netlify.app/). Please note that this page is a work 
+in progress and will be updated regularly.
+
+---
+<h5 align="center">Logo provided by <a href="https://www.flaticon.com/">Flaticon</a></h5>
+---

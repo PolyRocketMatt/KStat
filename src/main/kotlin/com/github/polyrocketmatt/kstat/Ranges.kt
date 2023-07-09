@@ -51,6 +51,10 @@ abstract class AbstractRange(val minVal: Double, val maxVal: Double) : IRange {
 
     abstract fun difference(range: IRange): List<IRange>
 
+    override fun toString(): String {
+        return "[$minVal, $maxVal)"
+    }
+
 }
 
 /**
@@ -84,6 +88,10 @@ class Range(val min: Double, val max: Double) : AbstractRange(min, max) {
         if (range.max < max)
             result.add(Range(range.max, max))
         return result
+    }
+
+    override fun toString(): String {
+        return "[$min, $max)"
     }
 
 }
@@ -130,6 +138,10 @@ class DisjointRange(vararg val values: Double) : AbstractRange(values.min(), val
             if (!range.contains(value)) result.add(DisjointRange(value))
         return result
     }
+
+    override fun toString(): String {
+        return values.joinToString(prefix = "[", postfix = "]")
+    }
 }
 
 /**
@@ -163,5 +175,9 @@ class SingleRange(val value: Double) : AbstractRange(value, Double.POSITIVE_INFI
     override fun difference(range: IRange): List<DisjointRange> {
         if (range !is SingleRange) throw KStatException("Range must be of type SingleRange")
         return if (range.value == value) listOf() else listOf(DisjointRange(value))
+    }
+
+    override fun toString(): String {
+        return "[$value]"
     }
 }

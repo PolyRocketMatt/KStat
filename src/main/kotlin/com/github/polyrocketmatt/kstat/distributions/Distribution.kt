@@ -1,5 +1,6 @@
 package com.github.polyrocketmatt.kstat.distributions
 
+import com.github.polyrocketmatt.kstat.EntropyType
 import com.github.polyrocketmatt.kstat.IRange
 import com.github.polyrocketmatt.kstat.exception.KStatException
 import kotlin.jvm.Throws
@@ -40,8 +41,10 @@ abstract class Distribution(private val seed: Int) {
      * Returns a random sample from the distribution.
      *
      * @return a random sample from the distribution
+     * @throws KStatException if some error occurred
      */
-    abstract fun sample(): Double
+    @Throws(KStatException::class)
+    abstract fun sample(vararg support: Double): Double
 
     /**
      * Returns count random samples from the distribution.
@@ -49,9 +52,10 @@ abstract class Distribution(private val seed: Int) {
      * @param n the number of samples to return
      * @return count random samples from the distribution
      * @throws KStatException if count is less than 1
+     * @throws KStatException if some error occurred
      */
     @Throws(KStatException::class)
-    abstract fun sample(n: Int): DoubleArray
+    abstract fun sample(n: Int, vararg support: Double): DoubleArray
 
     @Throws(KStatException::class)
     abstract fun pdf(x: Double): IRange
@@ -78,7 +82,7 @@ abstract class Distribution(private val seed: Int) {
     abstract fun kurtosis(): Double
 
     @Throws(KStatException::class)
-    abstract fun entropy(): Double
+    abstract fun entropy(type: EntropyType): Double
 
     @Throws(KStatException::class)
     abstract fun median(): IRange
