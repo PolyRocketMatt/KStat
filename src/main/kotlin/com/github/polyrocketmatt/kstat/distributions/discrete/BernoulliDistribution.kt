@@ -8,8 +8,6 @@ import com.github.polyrocketmatt.kstat.SingleRange
 import com.github.polyrocketmatt.kstat.distributions.Discrete
 import com.github.polyrocketmatt.kstat.distributions.Distribution
 import com.github.polyrocketmatt.kstat.exception.KStatException
-import kotlin.math.ln
-import kotlin.math.log2
 import kotlin.math.pow
 import kotlin.math.sqrt
 
@@ -32,8 +30,7 @@ class BernoulliDistribution(
 ) : Distribution(seed) {
 
     init {
-        if (p < 0.0 || p > 1.0)
-            throw KStatException("p must be between 0 and 1")
+        requireParam(p >= 0.0 && p < 1.0) { "p must be between 0 and 1" }
     }
 
     private val q = 1.0 - p
@@ -41,7 +38,7 @@ class BernoulliDistribution(
     private val stddev = sqrt(variance)
     private val skewness = (1.0 - 2.0 * p) / stddev
     private val kurtosis = (1.0 - 6.0 * variance) / variance
-    private val fisher = 1.0 / variance
+    private val fisher = doubleArrayOf(1.0 / variance)
 
     override fun sample(vararg support: Double): Double = if (prng.nextDouble() < p) 1.0 else 0.0
 
@@ -107,7 +104,7 @@ class BernoulliDistribution(
 
     override fun momentGeneratingFunction(): (Int) -> Double = { t -> q + p * Math.E.pow(t) }
 
-    override fun fisherInformation(): Double = fisher
+    override fun fisherInformation(): DoubleArray = fisher
 
     override fun equals(other: Any?): Boolean {
         if (this === other)                     return true
@@ -115,6 +112,12 @@ class BernoulliDistribution(
         if (seed != other.seed)                 return false
         if (p != other.p)                       return false
         return true
+    }
+
+    override fun hashCode(): Int {
+        var result = seed
+        result = 31 * result + p.hashCode()
+        return result
     }
 
     override fun toString(): String = "BernoulliDistribution(seed=$seed, p=$p)"

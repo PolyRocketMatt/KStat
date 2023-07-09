@@ -2,6 +2,8 @@ package com.github.polyrocketmatt.kstat.distributions
 
 import com.github.polyrocketmatt.kstat.IRange
 import com.github.polyrocketmatt.kstat.exception.KStatException
+import kotlin.contracts.ExperimentalContracts
+import kotlin.contracts.contract
 import kotlin.jvm.Throws
 import kotlin.random.Random
 
@@ -12,6 +14,22 @@ import kotlin.random.Random
  * @author Matthias Kovacic
  */
 abstract class Distribution(private val seed: Int) {
+
+    /**
+     * Checks if the given value is true, otherwise throws an exception.
+     *
+     * @param value The value to check
+     * @param lazyMessage The message to throw
+     * @throws KStatException If the value is false
+     */
+    @OptIn(ExperimentalContracts::class)
+    protected inline fun requireParam(value: Boolean, lazyMessage: () -> Any) {
+        contract { returns() implies value }
+        if (!value) {
+            val message = lazyMessage()
+            throw KStatException(message.toString())
+        }
+    }
 
     protected val prng = Random(seed)
 
@@ -194,7 +212,7 @@ abstract class Distribution(private val seed: Int) {
      * @throws KStatException If some error occurred
      */
     @Throws(KStatException::class)
-    abstract fun fisherInformation(): Double
+    abstract fun fisherInformation(): DoubleArray
 
     /**
      * Types of entropy.
