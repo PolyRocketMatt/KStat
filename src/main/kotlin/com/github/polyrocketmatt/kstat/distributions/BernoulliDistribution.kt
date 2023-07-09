@@ -39,6 +39,7 @@ class BernoulliDistribution(
     private val stddev = sqrt(variance)
     private val skewness = (1.0 - 2.0 * p) / stddev
     private val kurtosis = (1.0 - 6.0 * variance) / variance
+    private val fisher = 1.0 / variance
 
     override fun sample(vararg support: Double): Double = if (prng.nextDouble() < p) 1.0 else 0.0
 
@@ -107,14 +108,15 @@ class BernoulliDistribution(
 
     override fun momentGeneratingFunction(): (Int) -> Double = { t -> q + p * Math.E.pow(t) }
 
-    override fun fisherInformation(): Double = 1.0 / variance
+    override fun fisherInformation(): Double = fisher
 
     override fun equals(other: Any?): Boolean {
         if (this === other)                     return true
         if (other !is BernoulliDistribution)    return false
         if (seed != other.seed)                 return false
+        if (p != other.p)                       return false
         return true
     }
 
-    override fun toString(): String = "BernoulliDistribution(seed=$seed)"
+    override fun toString(): String = "BernoulliDistribution(seed=$seed, p=$p)"
 }

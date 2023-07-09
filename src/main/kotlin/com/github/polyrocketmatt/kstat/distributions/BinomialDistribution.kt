@@ -7,14 +7,16 @@ import com.github.polyrocketmatt.kstat.SingleRange
 import com.github.polyrocketmatt.kstat.binomial
 import com.github.polyrocketmatt.kstat.exception.KStatException
 import kotlin.jvm.Throws
+import kotlin.math.floor
 import kotlin.math.ln
+import kotlin.math.log2
 import kotlin.math.pow
 import kotlin.math.sqrt
 
 /**
  * Represents the bernoulli distribution.
  *
- * @property seed The seed to use for the random number generator.
+ * @property n The number of trials.
  * @property p The probability of success.
  * @constructor Creates a new bernoulli distribution.
  * @throws KStatException if [n] is not positive.
@@ -26,10 +28,9 @@ import kotlin.math.sqrt
  */
 @Discrete
 class BinomialDistribution(
-    private val seed: Int,
     private val n: Int,
     private val p: Double
-) : Distribution(seed) {
+) : Distribution(0) {
 
     init {
         if (n <= 0)
@@ -44,6 +45,7 @@ class BinomialDistribution(
     private val stddev = sqrt(variance)
     private val skewness = (q - p) / sqrt(stddev)
     private val kurtosis = (1.0 - 6.0 * variance) / stddev
+    private val fisher = n / (p * q)
 
     /**
      * Returns a random sample from the distribution.
@@ -86,51 +88,41 @@ class BinomialDistribution(
         TODO("Not yet implemented")
     }
 
-    override fun mean(): Double {
-        TODO("Not yet implemented")
+    override fun mean(): Double = mean
+
+    override fun variance(): Double = variance
+
+    override fun stddev(): Double = stddev
+
+    override fun skewness(): Double = skewness
+
+    override fun kurtosis(): Double = kurtosis
+
+    override fun entropy(type: EntropyType): Double = when(type) {
+        EntropyType.SHANNON     -> 0.5 * log2(2.0 * Math.PI * Math.E * variance)
+        EntropyType.NATURAL     -> 0.5 * ln(2.0 * Math.PI * Math.E * variance)
     }
 
-    override fun variance(): Double {
-        TODO("Not yet implemented")
+    override fun median(): SingleRange = SingleRange(floor(n * p))
+
+    override fun mode(): SingleRange = SingleRange(floor((n + 1) * p))
+
+    override fun mad(): Double = throw KStatException("MAD is not implemented for the binomial distribution")
+
+    override fun moment(n: Int): Double = momentGeneratingFunction().invoke(n)
+
+    override fun momentGeneratingFunction(): (Int) -> Double = { t -> (q + p * Math.E.pow(t)).pow(n) }
+
+    override fun fisherInformation(): Double = fisher
+
+    override fun equals(other: Any?): Boolean {
+        if (this === other)                     return true
+        if (other !is BinomialDistribution)     return false
+        if (n != other.n)                       return false
+        if (p != other.p)                       return false
+        return true
     }
 
-    override fun stddev(): Double {
-        TODO("Not yet implemented")
-    }
+    override fun toString(): String = "BinomialDistribution(n=$n, p=$p)"
 
-    override fun skewness(): Double {
-        TODO("Not yet implemented")
-    }
-
-    override fun kurtosis(): Double {
-        TODO("Not yet implemented")
-    }
-
-    override fun entropy(type: EntropyType): Double {
-        TODO("Not yet implemented")
-    }
-
-    override fun median(): IRange {
-        TODO("Not yet implemented")
-    }
-
-    override fun mode(): IRange {
-        TODO("Not yet implemented")
-    }
-
-    override fun mad(): Double {
-        TODO("Not yet implemented")
-    }
-
-    override fun moment(n: Int): Double {
-        TODO("Not yet implemented")
-    }
-
-    override fun momentGeneratingFunction(): (Int) -> Double {
-        TODO("Not yet implemented")
-    }
-
-    override fun fisherInformation(): Double {
-        TODO("Not yet implemented")
-    }
 }
