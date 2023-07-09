@@ -68,6 +68,8 @@ $dokka.location:com.github.polyrocketmatt.kstat.distributions/Distribution/sampl
 $dokka.location:com.github.polyrocketmatt.kstat.distributions/Distribution/skewness/#/PointingToDeclaration/-k-stat/com.github.polyrocketmatt.kstat.distributions/-distribution/skewness.html
 $dokka.location:com.github.polyrocketmatt.kstat.distributions/Distribution/stddev/#/PointingToDeclaration/-k-stat/com.github.polyrocketmatt.kstat.distributions/-distribution/stddev.html
 $dokka.location:com.github.polyrocketmatt.kstat.distributions/Distribution/variance/#/PointingToDeclaration/-k-stat/com.github.polyrocketmatt.kstat.distributions/-distribution/variance.html
+$dokka.location:com.github.polyrocketmatt.kstat.distributions/PoissonDistribution///PointingToDeclaration/-k-stat/com.github.polyrocketmatt.kstat.distributions/-poisson-distribution/index.html
+$dokka.location:com.github.polyrocketmatt.kstat.distributions/PoissonDistribution/PoissonDistribution/#/PointingToDeclaration/-k-stat/com.github.polyrocketmatt.kstat.distributions/-poisson-distribution/-poisson-distribution.html
 $dokka.location:com.github.polyrocketmatt.kstat.exception////PointingToDeclaration/-k-stat/com.github.polyrocketmatt.kstat.exception/index.html
 $dokka.location:com.github.polyrocketmatt.kstat.exception/KStatException///PointingToDeclaration/-k-stat/com.github.polyrocketmatt.kstat.exception/-k-stat-exception/index.html
 $dokka.location:com.github.polyrocketmatt.kstat.exception/KStatException/KStatException/#kotlin.String/PointingToDeclaration/-k-stat/com.github.polyrocketmatt.kstat.exception/-k-stat-exception/-k-stat-exception.html
@@ -93,6 +95,7 @@ $dokka.location:com.github.polyrocketmatt.kstat/ContinuousRange/ContinuousRange/
 $dokka.location:com.github.polyrocketmatt.kstat/ContinuousRange/accuracy/#/PointingToDeclaration/-k-stat/com.github.polyrocketmatt.kstat/-continuous-range/accuracy.html
 $dokka.location:com.github.polyrocketmatt.kstat/ContinuousRange/difference/#com.github.polyrocketmatt.kstat.IRange/PointingToDeclaration/-k-stat/com.github.polyrocketmatt.kstat/-continuous-range/difference.html
 $dokka.location:com.github.polyrocketmatt.kstat/ContinuousRange/intersection/#com.github.polyrocketmatt.kstat.IRange/PointingToDeclaration/-k-stat/com.github.polyrocketmatt.kstat/-continuous-range/intersection.html
+$dokka.location:com.github.polyrocketmatt.kstat/ContinuousRange/toDoubleArray/#/PointingToDeclaration/-k-stat/com.github.polyrocketmatt.kstat/-continuous-range/to-double-array.html
 $dokka.location:com.github.polyrocketmatt.kstat/ContinuousRange/toString/#/PointingToDeclaration/-k-stat/com.github.polyrocketmatt.kstat/-continuous-range/to-string.html
 $dokka.location:com.github.polyrocketmatt.kstat/ContinuousRange/union/#com.github.polyrocketmatt.kstat.IRange/PointingToDeclaration/-k-stat/com.github.polyrocketmatt.kstat/-continuous-range/union.html
 $dokka.location:com.github.polyrocketmatt.kstat/ContinuousRange/values/#/PointingToDeclaration/-k-stat/com.github.polyrocketmatt.kstat/-continuous-range/values.html
@@ -102,6 +105,7 @@ $dokka.location:com.github.polyrocketmatt.kstat/DiscreteRange/contains/#com.gith
 $dokka.location:com.github.polyrocketmatt.kstat/DiscreteRange/contains/#kotlin.Double/PointingToDeclaration/-k-stat/com.github.polyrocketmatt.kstat/-discrete-range/contains.html
 $dokka.location:com.github.polyrocketmatt.kstat/DiscreteRange/difference/#com.github.polyrocketmatt.kstat.IRange/PointingToDeclaration/-k-stat/com.github.polyrocketmatt.kstat/-discrete-range/difference.html
 $dokka.location:com.github.polyrocketmatt.kstat/DiscreteRange/intersection/#com.github.polyrocketmatt.kstat.IRange/PointingToDeclaration/-k-stat/com.github.polyrocketmatt.kstat/-discrete-range/intersection.html
+$dokka.location:com.github.polyrocketmatt.kstat/DiscreteRange/toDoubleArray/#/PointingToDeclaration/-k-stat/com.github.polyrocketmatt.kstat/-discrete-range/to-double-array.html
 $dokka.location:com.github.polyrocketmatt.kstat/DiscreteRange/toString/#/PointingToDeclaration/-k-stat/com.github.polyrocketmatt.kstat/-discrete-range/to-string.html
 $dokka.location:com.github.polyrocketmatt.kstat/DiscreteRange/union/#com.github.polyrocketmatt.kstat.IRange/PointingToDeclaration/-k-stat/com.github.polyrocketmatt.kstat/-discrete-range/union.html
 $dokka.location:com.github.polyrocketmatt.kstat/DiscreteRange/values/#/PointingToDeclaration/-k-stat/com.github.polyrocketmatt.kstat/-discrete-range/values.html
@@ -125,6 +129,7 @@ $dokka.location:com.github.polyrocketmatt.kstat/SingleRange/contains/#com.github
 $dokka.location:com.github.polyrocketmatt.kstat/SingleRange/contains/#kotlin.Double/PointingToDeclaration/-k-stat/com.github.polyrocketmatt.kstat/-single-range/contains.html
 $dokka.location:com.github.polyrocketmatt.kstat/SingleRange/difference/#com.github.polyrocketmatt.kstat.IRange/PointingToDeclaration/-k-stat/com.github.polyrocketmatt.kstat/-single-range/difference.html
 $dokka.location:com.github.polyrocketmatt.kstat/SingleRange/intersection/#com.github.polyrocketmatt.kstat.IRange/PointingToDeclaration/-k-stat/com.github.polyrocketmatt.kstat/-single-range/intersection.html
+$dokka.location:com.github.polyrocketmatt.kstat/SingleRange/toDouble/#/PointingToDeclaration/-k-stat/com.github.polyrocketmatt.kstat/-single-range/to-double.html
 $dokka.location:com.github.polyrocketmatt.kstat/SingleRange/toString/#/PointingToDeclaration/-k-stat/com.github.polyrocketmatt.kstat/-single-range/to-string.html
 $dokka.location:com.github.polyrocketmatt.kstat/SingleRange/union/#com.github.polyrocketmatt.kstat.IRange/PointingToDeclaration/-k-stat/com.github.polyrocketmatt.kstat/-single-range/union.html
 $dokka.location:com.github.polyrocketmatt.kstat/SingleRange/value/#/PointingToDeclaration/-k-stat/com.github.polyrocketmatt.kstat/-single-range/value.html
