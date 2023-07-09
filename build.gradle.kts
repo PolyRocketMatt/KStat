@@ -36,6 +36,15 @@ tasks.withType<org.jetbrains.dokka.gradle.DokkaTask>().configureEach {
         customAssets = listOf(file("img/logo-icon.svg"))
         footerMessage = "© 2023 Matthias Kovacic"
     }
+
+    dokkaSourceSets {
+        configureEach {
+            perPackageOption {
+                matchingRegex.set("com.github.polyrocketmatt.kstat.Test.kt")
+                suppress.set(true)
+            }
+        }
+    }
 }
 
 kotlin {
