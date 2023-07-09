@@ -2,11 +2,11 @@ package com.github.polyrocketmatt.kstat.distributions.discrete
 
 import com.github.polyrocketmatt.kstat.Functions.entropyLog
 import com.github.polyrocketmatt.kstat.Functions.factorial
-import com.github.polyrocketmatt.kstat.IRange
 import com.github.polyrocketmatt.kstat.SingleRange
 import com.github.polyrocketmatt.kstat.distributions.Discrete
 import com.github.polyrocketmatt.kstat.distributions.Distribution
 import com.github.polyrocketmatt.kstat.exception.KStatException
+import kotlin.jvm.Throws
 import kotlin.math.exp
 import kotlin.math.floor
 import kotlin.math.pow
@@ -39,26 +39,53 @@ class PoissonDistribution(
     private val stddev = sqrt(variance)
     private val skewness = 1.0 / stddev
     private val kurtosis = 1.0 / variance
-    private val fisher = 1.0 / variance
+    private val fisher = doubleArrayOf(1.0 / variance)
 
+    /**
+     * Returns a sample that is Poisson distributed.
+     *
+     * @return a random sample from the distribution
+     * @throws KStatException if the support is empty
+     * @throws KStatException if k is negative
+     */
+    @Throws(KStatException::class)
     override fun sample(vararg support: Double): Double {
-        TODO("Not yet implemented")
+        requireParam(support.isNotEmpty()) { "Support must not be empty, expected a value for k" }
+        val k = support[0].toInt()
+        requireParam(k >= 0) { "k must be positive" }
+        return exp(-lambda) * lambda.pow(k) / factorial(k)
     }
 
-    override fun sample(n: Int, vararg support: Double): DoubleArray {
-        TODO("Not yet implemented")
+    /**
+     * Returns n samples that are Poisson distributed.
+     *
+     * @param n the number of samples to return
+     * @return n random samples from the distribution
+     * @throws KStatException if the support is empty
+     * @throws KStatException if k is negative
+     */
+    @Throws(KStatException::class)
+    override fun sample(n: Int, vararg support: Double): DoubleArray = DoubleArray(n) { sample(*support) }
+
+    override fun pdf(x: Double): SingleRange = SingleRange(sample(x))
+
+    fun pdf(x: Int): SingleRange = SingleRange(sample(x.toDouble()))
+
+    override fun cdf(x: Double): SingleRange {
+        var sum = 0.0
+        for (i in 0..floor(x).toInt())
+            sum += sample(i.toDouble())
+        return SingleRange(sum)
     }
 
-    override fun pdf(x: Double): IRange {
-        TODO("Not yet implemented")
-    }
-
-    override fun cdf(x: Double): IRange {
-        TODO("Not yet implemented")
-    }
-
-    override fun quantile(x: Double): IRange {
-        TODO("Not yet implemented")
+    override fun quantile(x: Double): SingleRange {
+        var sum = 0.0
+        var k = 0
+        while (sum < x) {
+            sum += pdf(k.toDouble()).value
+            k++
+        }
+        return SingleRange(k - 1.0)
     }
 
     override fun mean(): Double = mean
@@ -100,5 +127,17 @@ class PoissonDistribution(
 
     override fun momentGeneratingFunction(): (Int) -> Double = { t -> exp(lambda * (Math.E.pow(t) - 1.0)) }
 
-    override fun fisherInformation(): Double = fisher
+    override fun fisherInformation(): DoubleArray = fisher
+
+    override fun equals(other: Any?): Boolean {
+        if (this === other)                     return true
+        if (other !is PoissonDistribution)      return false
+        if (rate != other.rate)                 return false
+        return true
+    }
+
+    override fun hashCode(): Int = 31 * lambda.toInt()
+
+    override fun toString(): String = "PoissonDistribution(rate=$rate)"
+
 }

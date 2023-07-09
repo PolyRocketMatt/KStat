@@ -9,8 +9,6 @@ import com.github.polyrocketmatt.kstat.distributions.Distribution
 import com.github.polyrocketmatt.kstat.exception.KStatException
 import kotlin.jvm.Throws
 import kotlin.math.floor
-import kotlin.math.ln
-import kotlin.math.log2
 import kotlin.math.pow
 import kotlin.math.sqrt
 
@@ -34,10 +32,8 @@ class BinomialDistribution(
 ) : Distribution(0) {
 
     init {
-        if (n <= 0)
-            throw KStatException("n must be positive")
-        if (p < 0.0 || p > 1.0)
-            throw KStatException("p must be between 0 and 1")
+        requireParam(n > 0) { "n must be positive" }
+        requireParam(p >= 0.0 && p < 1.0) { "p must be between 0 and 1" }
     }
 
     private val q = 1.0 - p
@@ -46,10 +42,10 @@ class BinomialDistribution(
     private val stddev = sqrt(variance)
     private val skewness = (q - p) / sqrt(stddev)
     private val kurtosis = (1.0 - 6.0 * variance) / stddev
-    private val fisher = n / (p * q)
+    private val fisher = doubleArrayOf(n / (p * q))
 
     /**
-     * Returns a random sample from the distribution.
+     * Returns a sample that is distributed binomially.
      *
      * @return a random sample from the distribution
      * @throws KStatException if the support is empty
@@ -57,25 +53,22 @@ class BinomialDistribution(
      */
     @Throws(KStatException::class)
     override fun sample(vararg support: Double): Double {
-        if (support.isEmpty())
-            throw KStatException("support must not be empty, expected a value for k")
+        requireParam(support.isNotEmpty()) { "Support must not be empty, expected a value for k" }
         val k = support[0].toInt()
-        if (k < 0 || k > n)
-            throw KStatException("k must be between 0 and n")
+        requireParam(k in 0..n) { "k must be between 0 and n" }
         return binomial(n, k) * p.pow(k) * q.pow(n - k)
     }
 
     /**
-     * Returns count random samples from the distribution.
+     * Returns n samples that are distributed binomially.
      *
      * @param n the number of samples to return
-     * @return count random samples from the distribution
-     * @throws KStatException if count is less than 1
+     * @return n random samples from the distribution
      * @throws KStatException if the support is empty
      * @throws KStatException if k is not between 0 and n
      */
     @Throws(KStatException::class)
-    override fun sample(n: Int, vararg support: Double): DoubleArray = DoubleArray(n) { sample(support = support) }
+    override fun sample(n: Int, vararg support: Double): DoubleArray = DoubleArray(n) { sample(*support) }
 
     override fun pdf(x: Double): SingleRange = SingleRange(sample(x))
 
@@ -84,7 +77,7 @@ class BinomialDistribution(
     override fun cdf(x: Double): SingleRange {
         var sum = 0.0
         for (i in 0..floor(x).toInt())
-            sum += sample(support = doubleArrayOf(i.toDouble()))
+            sum += sample(i.toDouble())
         return SingleRange(sum)
     }
 
@@ -120,7 +113,7 @@ class BinomialDistribution(
 
     override fun momentGeneratingFunction(): (Int) -> Double = { t -> (q + p * Math.E.pow(t)).pow(n) }
 
-    override fun fisherInformation(): Double = fisher
+    override fun fisherInformation(): DoubleArray = fisher
 
     override fun equals(other: Any?): Boolean {
         if (this === other)                     return true
@@ -128,6 +121,12 @@ class BinomialDistribution(
         if (n != other.n)                       return false
         if (p != other.p)                       return false
         return true
+    }
+
+    override fun hashCode(): Int {
+        var result = n
+        result = 31 * result + p.hashCode()
+        return result
     }
 
     override fun toString(): String = "BinomialDistribution(n=$n, p=$p)"
