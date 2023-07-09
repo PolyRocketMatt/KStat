@@ -1,11 +1,13 @@
 package com.github.polyrocketmatt.kstat.distributions.discrete
 
+import com.github.polyrocketmatt.kstat.Constants.E
+import com.github.polyrocketmatt.kstat.Constants.TAU
 import com.github.polyrocketmatt.kstat.Functions.entropyLog
 import com.github.polyrocketmatt.kstat.Functions.factorial
-import com.github.polyrocketmatt.kstat.SingleRange
 import com.github.polyrocketmatt.kstat.distributions.Discrete
 import com.github.polyrocketmatt.kstat.distributions.Distribution
 import com.github.polyrocketmatt.kstat.exception.KStatException
+import com.github.polyrocketmatt.kstat.range.SingleRange
 import kotlin.jvm.Throws
 import kotlin.math.exp
 import kotlin.math.floor
@@ -109,7 +111,7 @@ class PoissonDistribution(
 
             return lambda * (1.0 - entropyLog(lambda, type)) + factor * sum
         } else {
-            val primary = 0.5 * entropyLog(2.0 * Math.PI * Math.E * lambda, type)
+            val primary = 0.5 * entropyLog(TAU * E * lambda, type)
             val secondary = 1.0 / (12.0 * lambda)
             val tertiary = 1.0 / (24.0 * lambda.pow(2))
             val quaternary = 19.0 / (360.0 * lambda.pow(3))
@@ -125,7 +127,7 @@ class PoissonDistribution(
 
     override fun moment(n: Int): Double = momentGeneratingFunction().invoke(n)
 
-    override fun momentGeneratingFunction(): (Int) -> Double = { t -> exp(lambda * (Math.E.pow(t) - 1.0)) }
+    override fun momentGeneratingFunction(): (Int) -> Double = { t -> exp(lambda * (E.pow(t) - 1.0)) }
 
     override fun fisherInformation(): DoubleArray = fisher
 
