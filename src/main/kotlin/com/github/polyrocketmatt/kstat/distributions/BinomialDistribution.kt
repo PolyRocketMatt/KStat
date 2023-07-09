@@ -1,6 +1,6 @@
 package com.github.polyrocketmatt.kstat.distributions
 
-import com.github.polyrocketmatt.kstat.DisjointRange
+import com.github.polyrocketmatt.kstat.DiscreteRange
 import com.github.polyrocketmatt.kstat.EntropyType
 import com.github.polyrocketmatt.kstat.IRange
 import com.github.polyrocketmatt.kstat.SingleRange
@@ -80,12 +80,21 @@ class BinomialDistribution(
 
     fun pdf(x: Int): SingleRange = SingleRange(sample(x.toDouble()))
 
-    override fun cdf(x: Double): DisjointRange {
-        TODO("Not yet implemented")
+    override fun cdf(x: Double): SingleRange {
+        var sum = 0.0
+        for (i in 0..floor(x).toInt())
+            sum += sample(support = doubleArrayOf(i.toDouble()))
+        return SingleRange(sum)
     }
 
     override fun quantile(x: Double): IRange {
-        TODO("Not yet implemented")
+        var cumulativeProbability = 0.0
+        var k = 0
+        while (cumulativeProbability <= p && k <= n) {
+            cumulativeProbability += pdf(k.toDouble()).value
+            k++
+        }
+        return SingleRange(k - 1.0)
     }
 
     override fun mean(): Double = mean

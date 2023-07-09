@@ -1,6 +1,6 @@
 package com.github.polyrocketmatt.kstat.distributions
 
-import com.github.polyrocketmatt.kstat.DisjointRange
+import com.github.polyrocketmatt.kstat.DiscreteRange
 import com.github.polyrocketmatt.kstat.EntropyType
 import com.github.polyrocketmatt.kstat.IRange
 import com.github.polyrocketmatt.kstat.Range
@@ -60,7 +60,7 @@ class BernoulliDistribution(
             SingleRange(q)
     }
 
-    override fun quantile(x: Double): IRange {
+    override fun quantile(x: Double): SingleRange {
         if (x < 0.0 || x > 1.0)
             throw KStatException("x must be between 0 and 1")
         return if (x < q)
@@ -99,7 +99,7 @@ class BernoulliDistribution(
         else if (p > 0.5)
             SingleRange(1.0)
         else
-            DisjointRange(0.0, 1.0)
+            DiscreteRange(0.0, 1.0)
     }
 
     override fun mad(): Double = 0.5
