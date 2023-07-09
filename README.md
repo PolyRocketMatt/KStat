@@ -2,8 +2,7 @@
 ![Kotlin](https://img.shields.io/badge/Kotlin-1.8.0-%233e7fa8?logo=java&style=for-the-badge)
 
 <p align="center">
-    <img width="128" height="50
-" src="img/kstat-small.png" />
+    <img width="256" height="100" src="img/kstat-small.png" />
 </p>
 
 <h1 align="center">KStat</h1>
