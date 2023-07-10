@@ -20,8 +20,8 @@ import kotlin.math.sqrt
 /**
  * Represents the gamma distribution.
  *
- * @param alpha The shape parameter.
- * @param beta The scale parameter.
+ * @param alpha The shape parameter (α).
+ * @param beta The scale parameter (β).
  * @param seed The seed for the random number generator.
  * @constructor Creates a new normal distribution.
  * @throws KStatException If α or β are not greater than 0.

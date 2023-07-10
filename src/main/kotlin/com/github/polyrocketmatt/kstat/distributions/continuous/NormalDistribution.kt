@@ -19,12 +19,12 @@ import kotlin.math.sqrt
 /**
  * Represents the normal distribution.
  *
- * @param mean The mean of the distribution.
- * @param stddev The standard deviation of the distribution.
+ * @param mean The mean of the distribution (μ).
+ * @param stddev The standard deviation of the distribution (σ).
  * @param approx Whether to use Abramowitz and Stegun's approximation for the error function.
  * @param seed The seed to use for the random number generator.
  * @constructor Creates a new normal distribution.
- * @throws KStatException If stddev is not positive.
+ * @throws KStatException If σ is not positive.
  *
  * @see [Normal Distribution](https://en.wikipedia.org/wiki/Normal_distribution)
  * @since 1.0.0

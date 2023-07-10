@@ -13,10 +13,10 @@ import kotlin.math.sqrt
 /**
  * Represents the exponential distribution.
  *
- * @param lambda The rate parameter.
+ * @param lambda The rate parameter (λ).
  * @param seed The seed for the random number generator.
  * @constructor Creates a new exponential distribution.
- * @throws KStatException If lambda is not positive.
+ * @throws KStatException If λ is not positive.
  *
  * @see [Exponential Distribution](https://en.wikipedia.org/wiki/Exponential_distribution)
  * @since 1.0.0
