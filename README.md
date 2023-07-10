@@ -13,12 +13,13 @@ KStat is a small library for various statistical operations and probability dist
 
 ### Ranges
 
-Ranges are used to represent certain values or results of operations. In particular, they are used to represent the 
-result of a probability density function, cumulative distribution function, quantile function, etc. The following 
+Ranges are used to represent certain values or results of operations. In particular, they are used to represent the
+result of a probability density function, cumulative distribution function, quantile function, etc. The following
 ranges are available:
 
 - `Range(min: Double, max: Double)` - Represents a range of values from `min` (inclusive) to `max` (exclusive).
-- `DisjointRange(vararg values: Double)` - Represents a disjoint range of values. 
+- `DiscreteRange(vararg values: Double)` - Represents a discrete range (list) of values.
+- `ContinuousRange(vararg values: Double)` - Represents a continuous range (list) of values.
 - `SingularRange(value: Double)` - Represents a single value as a range.
 
 ### Probability Distributions
@@ -47,13 +48,18 @@ All distributions offer the following methods:
 
 Discrete Distributions:
 
-- Bernoulli - `Bernoulli(seed: Int, p: Double)`
-- Binomial - `Binomial(n: Int, p: Double)`
-- Poisson - `Poisson(rate: Int)`
+- Bernoulli - `BernoulliDistribution(seed: Int, p: Double)`
+- Binomial - `BinomialDistribution(n: Int, p: Double)`
+- Poisson - `PoissonDistribution(rate: Int)`
+
+Continuous Distributions:
+
+- Normal - `NormalDistribution(seed: Int, mean: Double, stddev: Double)`
+- Uniform - `UniformDistribution(seed: Int, min: Double, max: Double)`
 
 ## Documentation
 
-The documentation can be found [here](https://kstat-documentation.netlify.app/). Please note that this page is a work 
+The documentation can be found [here](https://kstat-documentation.netlify.app/). Please note that this page is a work
 in progress and will be updated regularly.
 
 ---
