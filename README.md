@@ -50,15 +50,16 @@ All distributions offer the following methods:
 
 Discrete Distributions:
 
-- Bernoulli - `BernoulliDistribution(seed: Int, p: Double)`
+- Bernoulli - `BernoulliDistribution(p: Double, seed: Int)`
 - Binomial - `BinomialDistribution(n: Int, p: Double)`
 - Poisson - `PoissonDistribution(rate: Int)`
 
 Continuous Distributions:
 
-- Normal - `NormalDistribution(seed: Int, mean: Double, stddev: Double)`
-- Uniform - `UniformDistribution(seed: Int, min: Double, max: Double)`
-- Exponential - `ExponentialDistribution(seed: Int, lambda: Double)`
+- Normal - `NormalDistribution(mean: Double, stddev: Double, seed: Int)`
+- Uniform - `UniformDistribution(min: Double, max: Double, seed: Int)`
+- Exponential - `ExponentialDistribution(lambda: Double, seed: Int)`
+- Gamma - `GammaDistribution(alpha: Double, beta: Double, seed: Int)`
 
 ## Documentation
 
