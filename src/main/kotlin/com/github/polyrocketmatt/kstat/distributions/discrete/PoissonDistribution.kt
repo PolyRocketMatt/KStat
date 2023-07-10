@@ -17,9 +17,9 @@ import kotlin.math.sqrt
 /**
  * Represents the Poisson distribution.
  *
- * @property rate The rate of the distribution.
+ * @param rate The rate of the distribution.
  * @constructor Creates a new Poisson distribution.
- * @throws KStatException If [rate] is not positive.
+ * @throws KStatException If rate is not positive.
  *
  * @see [Poisson Distribution](https://en.wikipedia.org/wiki/Poisson_distribution)
  * @since 1.0.0

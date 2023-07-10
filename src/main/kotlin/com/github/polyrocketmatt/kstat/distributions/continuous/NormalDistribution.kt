@@ -19,12 +19,12 @@ import kotlin.math.sqrt
 /**
  * Represents the normal distribution.
  *
- * @property seed The seed to use for the random number generator.
- * @property mean The mean of the distribution.
- * @property stddev The standard deviation of the distribution.
- * @property approx Whether to use Abramowitz and Stegun's approximation for the error function.
+ * @param mean The mean of the distribution.
+ * @param stddev The standard deviation of the distribution.
+ * @param approx Whether to use Abramowitz and Stegun's approximation for the error function.
+ * @param seed The seed to use for the random number generator.
  * @constructor Creates a new normal distribution.
- * @throws KStatException if [stddev] is not positive.
+ * @throws KStatException If stddev is not positive.
  *
  * @see [Normal Distribution](https://en.wikipedia.org/wiki/Normal_distribution)
  * @since 1.0.0
@@ -32,13 +32,13 @@ import kotlin.math.sqrt
  */
 @Continuous
 class NormalDistribution(
-    private val seed: Int = 0,
     private val mean: Double,
     private val stddev: Double,
-    private val approx: Boolean = false
+    private val approx: Boolean = false,
+    private val seed: Int = 0
 ) : ContinuousDistribution(seed) {
 
-    constructor(seed: Int = 0, approx: Boolean = false) : this(seed, 0.0, 1.0, approx)
+    constructor(approx: Boolean = false, seed: Int = 0) : this(0.0, 1.0, approx, seed)
 
     init {
         requireParam(stddev > 0) { "Standard deviation must be positive" }
@@ -108,6 +108,8 @@ class NormalDistribution(
     override fun fisherInformation(): DoubleArray = fisher
 
     override fun klDivergence(other: ContinuousDistribution): Double {
+        requireParam(other is NormalDistribution) { "Other distribution must be normal" }
+
         val stddevFract = variance / other.variance()
         val meanDiff = (mean - other.mean()).pow(2.0) / other.variance()
         return 0.5 * (stddevFract + meanDiff - 1.0 + ln(other.variance() / variance))

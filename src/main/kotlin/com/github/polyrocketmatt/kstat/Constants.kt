@@ -8,5 +8,8 @@ object Constants {
     const val PI = 3.141592653589793
     const val TAU = 6.283185307179586
     const val E = 2.718281828459045
+    const val EULER_MASCHERONI = 0.5772156649015329
+
+    const val EPSILON = 1e-10
 
 }

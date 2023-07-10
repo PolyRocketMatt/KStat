@@ -16,11 +16,11 @@ import kotlin.math.sqrt
 /**
  * Represents the bernoulli distribution.
  *
- * @property n The number of trials.
- * @property p The probability of success.
+ * @param n The number of trials.
+ * @param p The probability of success.
  * @constructor Creates a new binomial distribution.
- * @throws KStatException If [n] is not positive.
- * @throws KStatException If [p] is not between 0 and 1.
+ * @throws KStatException If n is not positive.
+ * @throws KStatException If p is not between 0 and 1.
  *
  * @see [Bernoulli Distribution](https://en.wikipedia.org/wiki/Bernoulli_distribution)
  * @since 1.0.0

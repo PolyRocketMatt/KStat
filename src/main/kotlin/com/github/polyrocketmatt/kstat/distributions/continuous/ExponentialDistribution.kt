@@ -13,9 +13,10 @@ import kotlin.math.sqrt
 /**
  * Represents the exponential distribution.
  *
- * @property lambda The rate parameter.
+ * @param lambda The rate parameter.
+ * @param seed The seed for the random number generator.
  * @constructor Creates a new exponential distribution.
- * @throws KStatException If [lambda] is not positive.
+ * @throws KStatException If lambda is not positive.
  *
  * @see [Exponential Distribution](https://en.wikipedia.org/wiki/Exponential_distribution)
  * @since 1.0.0
@@ -23,8 +24,8 @@ import kotlin.math.sqrt
  */
 @Continuous
 class ExponentialDistribution(
-    private val seed: Int = 0,
-    private val lambda: Double
+    private val lambda: Double,
+    private val seed: Int = 0
 ) : ContinuousDistribution(seed) {
 
     init {

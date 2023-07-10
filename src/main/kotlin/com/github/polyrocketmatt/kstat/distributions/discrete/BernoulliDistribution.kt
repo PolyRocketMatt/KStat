@@ -14,10 +14,10 @@ import kotlin.math.sqrt
 /**
  * Represents the bernoulli distribution.
  *
- * @property p The probability of success.
- * @property seed The seed to use for the random number generator.
+ * @param p The probability of success.
+ * @param seed The seed to use for the random number generator.
  * @constructor Creates a new bernoulli distribution.
- * @throws KStatException If [p] is not between 0 and 1.
+ * @throws KStatException If p is not between 0 and 1.
  *
  * @see [Bernoulli Distribution](https://en.wikipedia.org/wiki/Bernoulli_distribution)
  * @since 1.0.0

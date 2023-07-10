@@ -7,7 +7,9 @@
 
 <h1 align="center">KStat</h1>
 
-KStat is a small library for various statistical operations and probability distributions.
+KStat is a small library for various statistical operations and probability distributions. This library is written to primarily support
+Kotlin and currently non-existing libraries for statistical operations. Furthermore, it provides a lightweight alternative
+to other libraries.
 
 ## Features
 

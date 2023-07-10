@@ -9,6 +9,8 @@ gradlew
 gradlew.bat
 build/
 build/**
+output/
+output/**
 
 # Specific files
 img/logo-icon.svg
