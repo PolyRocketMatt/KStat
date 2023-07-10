@@ -50,6 +50,11 @@ class GammaDistribution(
     private val mode = (alpha - 1) / beta
     private val fisher = doubleArrayOf(diGamma(alpha), -1.0 / beta, -1.0 / beta, alpha / (beta * beta))
 
+    /**
+     * Returns a sample that is gamma distributed (using Cheng's algorithm).
+     *
+     * @return A random sample from the distribution.
+     */
     override fun sample(vararg support: Double): Double {
         val d = alpha - 1.0 / 3.0
         val c = 1.0 / sqrt(9.0 * d)
@@ -66,6 +71,12 @@ class GammaDistribution(
         }
     }
 
+    /**
+     * Returns n samples that are gamma distributed.
+     *
+     * @param n The number of samples to return.
+     * @return n random samples from the distribution.
+     */
     override fun sample(n: Int, vararg support: Double): DoubleArray = DoubleArray(n) { sample(*support) }
 
     override fun pdf(x: Double): SingleRange {
