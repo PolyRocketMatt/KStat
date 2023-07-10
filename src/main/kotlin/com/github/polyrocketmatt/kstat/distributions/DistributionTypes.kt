@@ -16,6 +16,7 @@ abstract class ContinuousDistribution(seed: Int): Distribution(seed) {
      * @return The Kullback-Leibler divergence.
      * @throws KStatException If the Kullback-Leibler divergence cannot be calculated.
      * @throws KStatException If the other distribution is not the same type as this one.
+     * @see [Kullback-Leibler divergence](https://en.wikipedia.org/wiki/Kullback%E2%80%93Leibler_divergence)
      */
     @Throws(KStatException::class)
     abstract fun klDivergence(other: ContinuousDistribution): Double

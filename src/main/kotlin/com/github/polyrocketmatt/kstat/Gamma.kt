@@ -13,6 +13,7 @@ import kotlin.math.sqrt
 /**
  * The Gamma class contains functions related to the gamma function.
  *
+ * @see [Gamma Function](https://en.wikipedia.org/wiki/Gamma_function)
  * @since 1.0.0
  * @author Matthias Kovacic
  */

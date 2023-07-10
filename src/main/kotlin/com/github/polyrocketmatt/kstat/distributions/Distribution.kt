@@ -99,6 +99,7 @@ abstract class Distribution(private val seed: Int) {
      * @param x The value to evaluate the PDF at
      * @return The probability density function (PDF) of the distribution
      * @throws KStatException If some error occurred
+     * @see [Probability Density Function](https://en.wikipedia.org/wiki/Probability_density_function)
      */
     @Throws(KStatException::class)
     abstract fun pdf(x: Double): IRange
@@ -109,6 +110,7 @@ abstract class Distribution(private val seed: Int) {
      * @param x The value to evaluate the CDF at
      * @return The cumulative distribution function (CDF) of the distribution
      * @throws KStatException If some error occurred
+     * @see [Cumulative Distribution Function](https://en.wikipedia.org/wiki/Cumulative_distribution_function)
      */
     @Throws(KStatException::class)
     abstract fun cdf(x: Double): IRange
@@ -119,6 +121,7 @@ abstract class Distribution(private val seed: Int) {
      * @param x The value to evaluate the quantile at
      * @return The quantile of the distribution
      * @throws KStatException If some error occurred
+     * @see [Quantile](https://en.wikipedia.org/wiki/Quantile)
      */
     @Throws(KStatException::class)
     abstract fun quantile(x: Double): IRange
@@ -128,6 +131,7 @@ abstract class Distribution(private val seed: Int) {
      *
      * @return The mean of the distribution
      * @throws KStatException If some error occurred
+     * @see [Mean](https://en.wikipedia.org/wiki/Mean)
      */
     @Throws(KStatException::class)
     abstract fun mean(): Double
@@ -137,6 +141,7 @@ abstract class Distribution(private val seed: Int) {
      *
      * @return The variance of the distribution
      * @throws KStatException If some error occurred
+     * @see [Variance](https://en.wikipedia.org/wiki/Variance)
      */
     @Throws(KStatException::class)
     abstract fun variance(): Double
@@ -146,6 +151,7 @@ abstract class Distribution(private val seed: Int) {
      *
      * @return The standard deviation of the distribution
      * @throws KStatException If some error occurred
+     * @see [Standard deviation](https://en.wikipedia.org/wiki/Standard_deviation)
      */
     @Throws(KStatException::class)
     abstract fun stddev(): Double
@@ -155,6 +161,7 @@ abstract class Distribution(private val seed: Int) {
      *
      * @return The skewness of the distribution
      * @throws KStatException If some error occurred
+     * @see [Skewness](https://en.wikipedia.org/wiki/Skewness)
      */
     @Throws(KStatException::class)
     abstract fun skewness(): Double
@@ -164,6 +171,7 @@ abstract class Distribution(private val seed: Int) {
      *
      * @return The kurtosis of the distribution
      * @throws KStatException If some error occurred
+     * @see [Kurtosis](https://en.wikipedia.org/wiki/Kurtosis)
      */
     @Throws(KStatException::class)
     abstract fun kurtosis(): Double
@@ -174,6 +182,7 @@ abstract class Distribution(private val seed: Int) {
      * @param type The type of entropy to return
      * @return The entropy of the distribution
      * @throws KStatException If some error occurred
+     * @see [Entropy](https://en.wikipedia.org/wiki/Information_entropy)
      */
     @Throws(KStatException::class)
     abstract fun entropy(type: EntropyType): Double
@@ -183,6 +192,7 @@ abstract class Distribution(private val seed: Int) {
      *
      * @return The median of the distribution
      * @throws KStatException If some error occurred
+     * @see [Median](https://en.wikipedia.org/wiki/Median)
      */
     @Throws(KStatException::class)
     abstract fun median(): IRange
@@ -192,6 +202,7 @@ abstract class Distribution(private val seed: Int) {
      *
      * @return The mode of the distribution
      * @throws KStatException If some error occurred
+     * @see [Mode](https://en.wikipedia.org/wiki/Mode_(statistics))
      */
     @Throws(KStatException::class)
     abstract fun mode(): IRange
@@ -201,6 +212,7 @@ abstract class Distribution(private val seed: Int) {
      *
      * @return The mean absolute deviation (MAD) of the distribution
      * @throws KStatException If some error occurred
+     * @see [Mean Absolute Deviation](https://en.wikipedia.org/wiki/Median_absolute_deviation)
      */
     @Throws(KStatException::class)
     abstract fun mad(): Double
@@ -220,6 +232,7 @@ abstract class Distribution(private val seed: Int) {
      *
      * @return The moment generating function (MGF) of the distribution
      * @throws KStatException If some error occurred
+     * @see [Moment Generating Function](https://en.wikipedia.org/wiki/Moment-generating_function)
      */
     @Throws(KStatException::class)
     abstract fun mgf(): (Int) -> Double
@@ -229,6 +242,7 @@ abstract class Distribution(private val seed: Int) {
      *
      * @return The Fisher information of the distribution
      * @throws KStatException If some error occurred
+     * @see [Fisher Information](https://en.wikipedia.org/wiki/Fisher_information)
      */
     @Throws(KStatException::class)
     abstract fun fisherInformation(): DoubleArray
