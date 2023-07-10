@@ -5,7 +5,7 @@ import com.github.polyrocketmatt.kstat.Constants.TAU
 import com.github.polyrocketmatt.kstat.Functions.binomial
 import com.github.polyrocketmatt.kstat.Functions.entropyLog
 import com.github.polyrocketmatt.kstat.distributions.Discrete
-import com.github.polyrocketmatt.kstat.distributions.Distribution
+import com.github.polyrocketmatt.kstat.distributions.DiscreteDistribution
 import com.github.polyrocketmatt.kstat.exception.KStatException
 import com.github.polyrocketmatt.kstat.range.SingleRange
 import kotlin.jvm.Throws
@@ -30,7 +30,7 @@ import kotlin.math.sqrt
 class BinomialDistribution(
     private val n: Int,
     private val p: Double
-) : Distribution(0) {
+) : DiscreteDistribution(0) {
 
     init {
         requireParam(n > 0) { "n must be positive" }

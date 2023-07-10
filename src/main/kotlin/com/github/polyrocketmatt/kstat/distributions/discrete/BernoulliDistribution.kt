@@ -2,7 +2,7 @@ package com.github.polyrocketmatt.kstat.distributions.discrete
 
 import com.github.polyrocketmatt.kstat.Functions.entropyLog
 import com.github.polyrocketmatt.kstat.distributions.Discrete
-import com.github.polyrocketmatt.kstat.distributions.Distribution
+import com.github.polyrocketmatt.kstat.distributions.DiscreteDistribution
 import com.github.polyrocketmatt.kstat.exception.KStatException
 import com.github.polyrocketmatt.kstat.range.DiscreteRange
 import com.github.polyrocketmatt.kstat.range.IRange
@@ -27,7 +27,7 @@ import kotlin.math.sqrt
 class BernoulliDistribution(
     private val seed: Int = 0,
     private val p: Double = 0.5
-) : Distribution(seed) {
+) : DiscreteDistribution(seed) {
 
     init {
         requireParam(p >= 0.0 && p < 1.0) { "p must be between 0 and 1" }

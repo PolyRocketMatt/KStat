@@ -2,11 +2,13 @@ package com.github.polyrocketmatt.kstat.distributions.continuous
 
 import com.github.polyrocketmatt.kstat.Functions.entropyLog
 import com.github.polyrocketmatt.kstat.distributions.Continuous
-import com.github.polyrocketmatt.kstat.distributions.Distribution
+import com.github.polyrocketmatt.kstat.distributions.ContinuousDistribution
 import com.github.polyrocketmatt.kstat.exception.KStatException
 import com.github.polyrocketmatt.kstat.range.ContinuousRange
 import com.github.polyrocketmatt.kstat.range.SingleRange
+import com.github.polyrocketmatt.kstat.utils.SimpsonIntegrator
 import kotlin.math.exp
+import kotlin.math.log2
 import kotlin.math.pow
 import kotlin.math.sqrt
 
@@ -15,7 +17,7 @@ import kotlin.math.sqrt
  *
  * @property min The minimum value of the distribution.
  * @property max The maximum value of the distribution.
- * @constructor Creates a new bernoulli distribution.
+ * @constructor Creates a new uniform distribution.
  * @throws KStatException if [min] is greater than [max].
  *
  * @see [Uniform Distribution](https://en.wikipedia.org/wiki/Continuous_uniform_distribution)
@@ -27,10 +29,10 @@ class UniformDistribution(
     private val seed: Int,
     private val min: Double,
     private val max: Double
-) : Distribution(seed) {
+) : ContinuousDistribution(seed) {
 
     init {
-        requireParam(min < max) { "min must be less than max" }
+        requireParam(min < max) { "Min must be less than max" }
     }
 
     private val mean = (min + max) / 2.0
@@ -56,7 +58,7 @@ class UniformDistribution(
             SingleRange((x - min) / (max - min))
 
     override fun quantile(x: Double): SingleRange {
-        requireParam(x in 0.0..1.0) { "x must be between 0 and 1" }
+        requireParam(x in 0.0..1.0) { "Quantile 'x' must be between 0 and 1" }
 
         return SingleRange(min + x * (max - min))
     }
@@ -84,4 +86,30 @@ class UniformDistribution(
     override fun mgf(): (Int) -> Double = { t -> if (t == 0) 1.0 else (exp(t * max) - exp(t * min)) / (t * (max - min)) }
 
     override fun fisherInformation(): DoubleArray = fisher
+
+    override fun klDivergence(other: ContinuousDistribution): Double {
+        requireParam(other is UniformDistribution) { "other must be a UniformDistribution" }
+
+        return SimpsonIntegrator.simpson({ _ -> log2((other.max - other.min) / (max - min)) }, min, max)
+    }
+
+    override fun equals(other: Any?): Boolean {
+        if (this === other)                     return true
+        if (other !is UniformDistribution)      return false
+        if (seed != other.seed)                 return false
+        if (min != other.min)                   return false
+        if (max != other.max)                   return false
+        return true
+    }
+
+    override fun hashCode(): Int {
+        var result = seed
+        result = 31 * result + seed.hashCode()
+        result = 31 * result + min.hashCode()
+        result = 31 * result + max.hashCode()
+        return result
+    }
+
+    override fun toString(): String = "UniformDistribution(seed=$seed, min=$min, max=$max)"
+
 }
