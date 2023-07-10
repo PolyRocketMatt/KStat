@@ -56,6 +56,7 @@ Continuous Distributions:
 
 - Normal - `NormalDistribution(seed: Int, mean: Double, stddev: Double)`
 - Uniform - `UniformDistribution(seed: Int, min: Double, max: Double)`
+- Exponential - `ExponentialDistribution(seed: Int, lambda: Double)`
 
 ## Documentation
 
