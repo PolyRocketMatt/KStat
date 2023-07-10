@@ -18,7 +18,7 @@ import kotlin.math.sqrt
  * Represents the Poisson distribution.
  *
  * @property rate The rate of the distribution.
- * @constructor Creates a new bernoulli distribution.
+ * @constructor Creates a new Poisson distribution.
  * @throws KStatException if [rate] is not positive.
  *
  * @see [Poisson Distribution](https://en.wikipedia.org/wiki/Poisson_distribution)
@@ -125,9 +125,9 @@ class PoissonDistribution(
 
     override fun mad(): Double = throw KStatException("MAD is not implemented for discrete distributions")
 
-    override fun moment(n: Int): Double = momentGeneratingFunction().invoke(n)
+    override fun moment(n: Int): Double = mgf()(n)
 
-    override fun momentGeneratingFunction(): (Int) -> Double = { t -> exp(lambda * (E.pow(t) - 1.0)) }
+    override fun mgf(): (Int) -> Double = { t -> exp(lambda * (E.pow(t) - 1.0)) }
 
     override fun fisherInformation(): DoubleArray = fisher
 

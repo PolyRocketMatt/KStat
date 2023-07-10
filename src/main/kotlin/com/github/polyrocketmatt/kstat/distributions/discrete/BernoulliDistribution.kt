@@ -44,10 +44,12 @@ class BernoulliDistribution(
 
     override fun sample(n: Int, vararg support: Double): DoubleArray = DoubleArray(n) { sample() }
 
-    override fun pdf(x: Double): SingleRange = when (x) {
-        0.0 -> SingleRange(q)
-        1.0 -> SingleRange(p)
-        else -> throw KStatException("x must be 0 or 1")
+    override fun pdf(x: Double): SingleRange {
+        requireParam(x in 0.0..1.0) { "x must be between 0 and 1" }
+        return if (x == 0.0)
+            SingleRange(q)
+        else
+            SingleRange(p)
     }
 
     override fun cdf(x: Double): SingleRange {
@@ -60,8 +62,8 @@ class BernoulliDistribution(
     }
 
     override fun quantile(x: Double): SingleRange {
-        if (x < 0.0 || x > 1.0)
-            throw KStatException("x must be between 0 and 1")
+        requireParam(x in 0.0..1.0) { "x must be between 0 and 1" }
+
         return if (x < q)
             SingleRange(0.0)
         else
@@ -100,9 +102,9 @@ class BernoulliDistribution(
 
     override fun mad(): Double = 0.5
 
-    override fun moment(n: Int): Double = momentGeneratingFunction().invoke(n)
+    override fun moment(n: Int): Double = mgf()(n)
 
-    override fun momentGeneratingFunction(): (Int) -> Double = { t -> q + p * Math.E.pow(t) }
+    override fun mgf(): (Int) -> Double = { t -> q + p * Math.E.pow(t) }
 
     override fun fisherInformation(): DoubleArray = fisher
 

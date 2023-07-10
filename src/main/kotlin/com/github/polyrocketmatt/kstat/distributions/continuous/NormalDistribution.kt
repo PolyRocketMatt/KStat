@@ -23,7 +23,7 @@ import kotlin.math.sqrt
  * @property mean The mean of the distribution.
  * @property stddev The standard deviation of the distribution.
  * @property approx Whether to use Abramowitz and Stegun's approximation for the error function.
- * @constructor Creates a new bernoulli distribution.
+ * @constructor Creates a new normal distribution.
  * @throws KStatException if [stddev] is not positive.
  *
  * @see [Normal Distribution](https://en.wikipedia.org/wiki/Normal_distribution)
@@ -95,9 +95,9 @@ class NormalDistribution(
 
     override fun mad(): Double = sigma * SQRT_2 * erfc(0.5, approx)
 
-    override fun moment(n: Int): Double = momentGeneratingFunction().invoke(n)
+    override fun moment(n: Int): Double = mgf()(n)
 
-    override fun momentGeneratingFunction(): (Int) -> Double = { t -> exp(mu * t + variance * t * t / 2.0) }
+    override fun mgf(): (Int) -> Double = { t -> exp(mu * t + variance * t * t / 2.0) }
 
     override fun fisherInformation(): DoubleArray = fisher
 
