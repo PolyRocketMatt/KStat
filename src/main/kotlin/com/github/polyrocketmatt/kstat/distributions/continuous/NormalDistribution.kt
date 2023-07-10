@@ -32,11 +32,13 @@ import kotlin.math.sqrt
  */
 @Continuous
 class NormalDistribution(
-    private val seed: Int,
+    private val seed: Int = 0,
     private val mean: Double,
     private val stddev: Double,
     private val approx: Boolean = false
 ) : ContinuousDistribution(seed) {
+
+    constructor(seed: Int = 0, approx: Boolean = false) : this(seed, 0.0, 1.0, approx)
 
     init {
         requireParam(stddev > 0) { "Standard deviation must be positive" }
