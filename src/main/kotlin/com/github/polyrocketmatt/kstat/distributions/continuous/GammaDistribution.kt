@@ -1,6 +1,9 @@
 package com.github.polyrocketmatt.kstat.distributions.continuous
 
+import com.github.polyrocketmatt.kstat.Constants.EPSILON
 import com.github.polyrocketmatt.kstat.Gamma.diGamma
+import com.github.polyrocketmatt.kstat.Gamma.gamma
+import com.github.polyrocketmatt.kstat.Gamma.incompleteGamma
 import com.github.polyrocketmatt.kstat.Gamma.lnGamma
 import com.github.polyrocketmatt.kstat.distributions.Continuous
 import com.github.polyrocketmatt.kstat.distributions.ContinuousDistribution
@@ -9,6 +12,7 @@ import com.github.polyrocketmatt.kstat.exception.KStatException
 import com.github.polyrocketmatt.kstat.exception.KStatUndefinedException
 import com.github.polyrocketmatt.kstat.range.IRange
 import com.github.polyrocketmatt.kstat.range.SingleRange
+import kotlin.math.exp
 import kotlin.math.ln
 import kotlin.math.pow
 import kotlin.math.sqrt
@@ -64,16 +68,35 @@ class GammaDistribution(
 
     override fun sample(n: Int, vararg support: Double): DoubleArray = DoubleArray(n) { sample(*support) }
 
-    override fun pdf(x: Double): IRange {
-        TODO("Not yet implemented")
+    override fun pdf(x: Double): SingleRange {
+        val nominator = beta.pow(alpha) * x.pow(alpha - 1) * exp(-beta * x)
+        val denominator = gamma(alpha)
+        return SingleRange(nominator / denominator)
     }
 
-    override fun cdf(x: Double): IRange {
-        TODO("Not yet implemented")
+    override fun cdf(x: Double): SingleRange {
+        val nominator = incompleteGamma(alpha, beta * x)
+        val denominator = gamma(alpha)
+        return SingleRange(nominator / denominator)
     }
 
-    override fun quantile(x: Double): IRange {
-        TODO("Not yet implemented")
+    override fun quantile(x: Double): SingleRange {
+        requireParam(x in 0.0..1.0) { "Quantile 'x' must be between 0 and 1" }
+
+        var lowerBound = 0.0
+        var upperBound = alpha * beta * 100.0
+        while (upperBound - lowerBound > EPSILON) {
+            val p = (lowerBound + upperBound) / 2
+            val cumulativeProbability = incompleteGamma(alpha, beta * p) / gamma(alpha)
+
+            if (cumulativeProbability < x) {
+                lowerBound = p
+            } else {
+                upperBound = p
+            }
+        }
+
+        return SingleRange((lowerBound + upperBound) / 2)
     }
 
     override fun mean(): Double = mean
