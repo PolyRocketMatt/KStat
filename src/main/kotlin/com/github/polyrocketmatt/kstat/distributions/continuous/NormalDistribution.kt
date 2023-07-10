@@ -7,7 +7,7 @@ import com.github.polyrocketmatt.kstat.Functions.entropyLog
 import com.github.polyrocketmatt.kstat.Functions.erf
 import com.github.polyrocketmatt.kstat.Functions.erfc
 import com.github.polyrocketmatt.kstat.distributions.Continuous
-import com.github.polyrocketmatt.kstat.distributions.Distribution
+import com.github.polyrocketmatt.kstat.distributions.ContinuousDistribution
 import com.github.polyrocketmatt.kstat.exception.KStatException
 import com.github.polyrocketmatt.kstat.range.SingleRange
 import kotlin.math.cos
@@ -23,7 +23,7 @@ import kotlin.math.sqrt
  * @property mean The mean of the distribution.
  * @property stddev The standard deviation of the distribution.
  * @property approx Whether to use Abramowitz and Stegun's approximation for the error function.
- * @constructor Creates a new bernoulli distribution.
+ * @constructor Creates a new normal distribution.
  * @throws KStatException if [stddev] is not positive.
  *
  * @see [Normal Distribution](https://en.wikipedia.org/wiki/Normal_distribution)
@@ -36,7 +36,7 @@ class NormalDistribution(
     private val mean: Double,
     private val stddev: Double,
     private val approx: Boolean = false
-) : Distribution(seed) {
+) : ContinuousDistribution(seed) {
 
     init {
         requireParam(stddev > 0) { "Standard deviation must be positive" }
@@ -75,7 +75,11 @@ class NormalDistribution(
         return SingleRange(0.5 * (1.0 + erf(z / SQRT_2, approx)))
     }
 
-    override fun quantile(x: Double): SingleRange = SingleRange(mu + sigma * SQRT_2 * erfc(2.0 * x - 1.0, approx))
+    override fun quantile(x: Double): SingleRange {
+        requireParam(x in 0.0..1.0) { "Quantile 'x' must be between 0 and 1" }
+
+        return SingleRange(mu + sigma * SQRT_2 * erfc(2.0 * x - 1.0, approx))
+    }
 
     override fun mean(): Double = mu
 
@@ -95,11 +99,17 @@ class NormalDistribution(
 
     override fun mad(): Double = sigma * SQRT_2 * erfc(0.5, approx)
 
-    override fun moment(n: Int): Double = momentGeneratingFunction().invoke(n)
+    override fun moment(n: Int): Double = mgf()(n)
 
-    override fun momentGeneratingFunction(): (Int) -> Double = { t -> exp(mu * t + variance * t * t / 2.0) }
+    override fun mgf(): (Int) -> Double = { t -> exp(mu * t + variance * t * t / 2.0) }
 
     override fun fisherInformation(): DoubleArray = fisher
+
+    override fun klDivergence(other: ContinuousDistribution): Double {
+        val stddevFract = variance / other.variance()
+        val meanDiff = (mean - other.mean()).pow(2.0) / other.variance()
+        return 0.5 * (stddevFract + meanDiff - 1.0 + ln(other.variance() / variance))
+    }
 
     override fun equals(other: Any?): Boolean {
         if (this === other)                     return true

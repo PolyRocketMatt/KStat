@@ -2,7 +2,7 @@ package com.github.polyrocketmatt.kstat.distributions.discrete
 
 import com.github.polyrocketmatt.kstat.Functions.entropyLog
 import com.github.polyrocketmatt.kstat.distributions.Discrete
-import com.github.polyrocketmatt.kstat.distributions.Distribution
+import com.github.polyrocketmatt.kstat.distributions.DiscreteDistribution
 import com.github.polyrocketmatt.kstat.exception.KStatException
 import com.github.polyrocketmatt.kstat.range.DiscreteRange
 import com.github.polyrocketmatt.kstat.range.IRange
@@ -27,7 +27,7 @@ import kotlin.math.sqrt
 class BernoulliDistribution(
     private val seed: Int = 0,
     private val p: Double = 0.5
-) : Distribution(seed) {
+) : DiscreteDistribution(seed) {
 
     init {
         requireParam(p >= 0.0 && p < 1.0) { "p must be between 0 and 1" }
@@ -44,10 +44,12 @@ class BernoulliDistribution(
 
     override fun sample(n: Int, vararg support: Double): DoubleArray = DoubleArray(n) { sample() }
 
-    override fun pdf(x: Double): SingleRange = when (x) {
-        0.0 -> SingleRange(q)
-        1.0 -> SingleRange(p)
-        else -> throw KStatException("x must be 0 or 1")
+    override fun pdf(x: Double): SingleRange {
+        requireParam(x in 0.0..1.0) { "x must be between 0 and 1" }
+        return if (x == 0.0)
+            SingleRange(q)
+        else
+            SingleRange(p)
     }
 
     override fun cdf(x: Double): SingleRange {
@@ -60,8 +62,8 @@ class BernoulliDistribution(
     }
 
     override fun quantile(x: Double): SingleRange {
-        if (x < 0.0 || x > 1.0)
-            throw KStatException("x must be between 0 and 1")
+        requireParam(x in 0.0..1.0) { "x must be between 0 and 1" }
+
         return if (x < q)
             SingleRange(0.0)
         else
@@ -100,9 +102,9 @@ class BernoulliDistribution(
 
     override fun mad(): Double = 0.5
 
-    override fun moment(n: Int): Double = momentGeneratingFunction().invoke(n)
+    override fun moment(n: Int): Double = mgf()(n)
 
-    override fun momentGeneratingFunction(): (Int) -> Double = { t -> q + p * Math.E.pow(t) }
+    override fun mgf(): (Int) -> Double = { t -> q + p * Math.E.pow(t) }
 
     override fun fisherInformation(): DoubleArray = fisher
 

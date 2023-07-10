@@ -5,7 +5,7 @@ import com.github.polyrocketmatt.kstat.Constants.TAU
 import com.github.polyrocketmatt.kstat.Functions.binomial
 import com.github.polyrocketmatt.kstat.Functions.entropyLog
 import com.github.polyrocketmatt.kstat.distributions.Discrete
-import com.github.polyrocketmatt.kstat.distributions.Distribution
+import com.github.polyrocketmatt.kstat.distributions.DiscreteDistribution
 import com.github.polyrocketmatt.kstat.exception.KStatException
 import com.github.polyrocketmatt.kstat.range.SingleRange
 import kotlin.jvm.Throws
@@ -18,7 +18,7 @@ import kotlin.math.sqrt
  *
  * @property n The number of trials.
  * @property p The probability of success.
- * @constructor Creates a new bernoulli distribution.
+ * @constructor Creates a new binomial distribution.
  * @throws KStatException if [n] is not positive.
  * @throws KStatException if [p] is not between 0 and 1.
  *
@@ -30,7 +30,7 @@ import kotlin.math.sqrt
 class BinomialDistribution(
     private val n: Int,
     private val p: Double
-) : Distribution(0) {
+) : DiscreteDistribution(0) {
 
     init {
         requireParam(n > 0) { "n must be positive" }
@@ -83,6 +83,8 @@ class BinomialDistribution(
     }
 
     override fun quantile(x: Double): SingleRange {
+        requireParam(x in 0.0..1.0) { "x must be between 0 and 1" }
+
         var cumulativeProbability = 0.0
         var k = 0
         while (cumulativeProbability <= p && k <= n) {
@@ -110,9 +112,9 @@ class BinomialDistribution(
 
     override fun mad(): Double = throw KStatException("MAD is not implemented for discrete distributions")
 
-    override fun moment(n: Int): Double = momentGeneratingFunction().invoke(n)
+    override fun moment(n: Int): Double = mgf()(n)
 
-    override fun momentGeneratingFunction(): (Int) -> Double = { t -> (q + p * Math.E.pow(t)).pow(n) }
+    override fun mgf(): (Int) -> Double = { t -> (q + p * Math.E.pow(t)).pow(n) }
 
     override fun fisherInformation(): DoubleArray = fisher
 

@@ -203,7 +203,7 @@ abstract class Distribution(private val seed: Int) {
      * @throws KStatException If some error occurred
      */
     @Throws(KStatException::class)
-    abstract fun momentGeneratingFunction(): (Int) -> Double
+    abstract fun mgf(): (Int) -> Double
 
     /**
      * Returns the Fisher information of the distribution.

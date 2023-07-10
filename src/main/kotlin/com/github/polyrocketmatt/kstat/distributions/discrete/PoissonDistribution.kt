@@ -5,7 +5,7 @@ import com.github.polyrocketmatt.kstat.Constants.TAU
 import com.github.polyrocketmatt.kstat.Functions.entropyLog
 import com.github.polyrocketmatt.kstat.Functions.factorial
 import com.github.polyrocketmatt.kstat.distributions.Discrete
-import com.github.polyrocketmatt.kstat.distributions.Distribution
+import com.github.polyrocketmatt.kstat.distributions.DiscreteDistribution
 import com.github.polyrocketmatt.kstat.exception.KStatException
 import com.github.polyrocketmatt.kstat.range.SingleRange
 import kotlin.jvm.Throws
@@ -18,7 +18,7 @@ import kotlin.math.sqrt
  * Represents the Poisson distribution.
  *
  * @property rate The rate of the distribution.
- * @constructor Creates a new bernoulli distribution.
+ * @constructor Creates a new Poisson distribution.
  * @throws KStatException if [rate] is not positive.
  *
  * @see [Poisson Distribution](https://en.wikipedia.org/wiki/Poisson_distribution)
@@ -28,7 +28,7 @@ import kotlin.math.sqrt
 @Discrete
 class PoissonDistribution(
     private val rate: Int = 0
-) : Distribution(0) {
+) : DiscreteDistribution(0) {
 
     init {
         if (rate < 0)
@@ -125,9 +125,9 @@ class PoissonDistribution(
 
     override fun mad(): Double = throw KStatException("MAD is not implemented for discrete distributions")
 
-    override fun moment(n: Int): Double = momentGeneratingFunction().invoke(n)
+    override fun moment(n: Int): Double = mgf()(n)
 
-    override fun momentGeneratingFunction(): (Int) -> Double = { t -> exp(lambda * (E.pow(t) - 1.0)) }
+    override fun mgf(): (Int) -> Double = { t -> exp(lambda * (E.pow(t) - 1.0)) }
 
     override fun fisherInformation(): DoubleArray = fisher
 
