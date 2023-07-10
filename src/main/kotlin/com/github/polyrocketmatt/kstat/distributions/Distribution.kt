@@ -8,6 +8,25 @@ import kotlin.jvm.Throws
 import kotlin.random.Random
 
 /**
+ * Returns a random number from a Gaussian distribution using the Box-Muller transform.
+ *
+ * @return A random number from a Gaussian distribution
+ * @see [Box-Muller transform](https://en.wikipedia.org/wiki/Box%E2%80%93Muller_transform)
+ */
+fun Random.nextGaussian(): Double {
+    var u: Double
+    var v: Double
+    var s: Double
+    do {
+        u = nextDouble() * 2 - 1
+        v = nextDouble() * 2 - 1
+        s = u * u + v * v
+    } while (s >= 1 || s == 0.0)
+    val mul = kotlin.math.sqrt(-2.0 * kotlin.math.ln(s) / s)
+    return u * mul
+}
+
+/**
  * Represents a probability distribution.
  *
  * @since 1.0.0

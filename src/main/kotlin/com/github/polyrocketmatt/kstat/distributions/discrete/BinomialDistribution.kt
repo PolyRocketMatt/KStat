@@ -16,11 +16,11 @@ import kotlin.math.sqrt
 /**
  * Represents the bernoulli distribution.
  *
- * @property n The number of trials.
- * @property p The probability of success.
+ * @param n The number of trials.
+ * @param p The probability of success.
  * @constructor Creates a new binomial distribution.
- * @throws KStatException if [n] is not positive.
- * @throws KStatException if [p] is not between 0 and 1.
+ * @throws KStatException If n is not positive.
+ * @throws KStatException If p is not between 0 and 1.
  *
  * @see [Bernoulli Distribution](https://en.wikipedia.org/wiki/Bernoulli_distribution)
  * @since 1.0.0
@@ -46,11 +46,11 @@ class BinomialDistribution(
     private val fisher = doubleArrayOf(n / (p * q))
 
     /**
-     * Returns a sample that is distributed binomially.
+     * Returns a sample that is binomially distributed.
      *
-     * @return a random sample from the distribution
-     * @throws KStatException if the support is empty
-     * @throws KStatException if k is not between 0 and n
+     * @return A random sample from the distribution.
+     * @throws KStatException If the support is empty.
+     * @throws KStatException If k is not between 0 and n.
      */
     @Throws(KStatException::class)
     override fun sample(vararg support: Double): Double {
@@ -61,12 +61,12 @@ class BinomialDistribution(
     }
 
     /**
-     * Returns n samples that are distributed binomially.
+     * Returns n samples that are normally distributed.
      *
-     * @param n the number of samples to return
-     * @return n random samples from the distribution
-     * @throws KStatException if the support is empty
-     * @throws KStatException if k is not between 0 and n
+     * @param n The number of samples to return.
+     * @return n random samples from the distribution.
+     * @throws KStatException If the support is empty.
+     * @throws KStatException If k is not between 0 and n.
      */
     @Throws(KStatException::class)
     override fun sample(n: Int, vararg support: Double): DoubleArray = DoubleArray(n) { sample(*support) }

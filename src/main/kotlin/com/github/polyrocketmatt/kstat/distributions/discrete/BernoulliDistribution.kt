@@ -14,10 +14,10 @@ import kotlin.math.sqrt
 /**
  * Represents the bernoulli distribution.
  *
- * @property seed The seed to use for the random number generator.
- * @property p The probability of success.
+ * @param p The probability of success.
+ * @param seed The seed to use for the random number generator.
  * @constructor Creates a new bernoulli distribution.
- * @throws KStatException if [p] is not between 0 and 1.
+ * @throws KStatException If p is not between 0 and 1.
  *
  * @see [Bernoulli Distribution](https://en.wikipedia.org/wiki/Bernoulli_distribution)
  * @since 1.0.0
@@ -25,8 +25,8 @@ import kotlin.math.sqrt
  */
 @Discrete
 class BernoulliDistribution(
+    private val p: Double,
     private val seed: Int = 0,
-    private val p: Double = 0.5
 ) : DiscreteDistribution(seed) {
 
     init {
@@ -40,8 +40,19 @@ class BernoulliDistribution(
     private val kurtosis = (1.0 - 6.0 * variance) / variance
     private val fisher = doubleArrayOf(1.0 / variance)
 
+    /**
+     * Returns a sample that is bernoulli distributed.
+     *
+     * @return A random sample from the distribution.
+     */
     override fun sample(vararg support: Double): Double = if (prng.nextDouble() < p) 1.0 else 0.0
 
+    /**
+     * Returns n samples that are normally distributed.
+     *
+     * @param n The number of samples to return.
+     * @return n random samples from the distribution.
+     */
     override fun sample(n: Int, vararg support: Double): DoubleArray = DoubleArray(n) { sample() }
 
     override fun pdf(x: Double): SingleRange {

@@ -15,6 +15,7 @@ repositories {
 
 dependencies {
     testImplementation(kotlin("test"))
+    dokkaPlugin("org.jetbrains.dokka:mathjax-plugin:1.8.20")
 }
 
 buildscript {
@@ -46,7 +47,6 @@ tasks.withType<org.jetbrains.dokka.gradle.DokkaTask>().configureEach {
             }
         }
     }
-
      */
 }
 

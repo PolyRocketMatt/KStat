@@ -1,5 +1,7 @@
 package com.github.polyrocketmatt.kstat
 
+import com.github.polyrocketmatt.kstat.Constants.SQRT_PI
+import com.github.polyrocketmatt.kstat.Gamma.incompleteGamma
 import com.github.polyrocketmatt.kstat.distributions.Distribution
 import com.github.polyrocketmatt.kstat.exception.KStatException
 import kotlin.math.abs
@@ -7,7 +9,6 @@ import kotlin.math.exp
 import kotlin.math.ln
 import kotlin.math.log2
 import kotlin.math.pow
-import kotlin.math.sqrt
 
 object Functions {
 
@@ -73,28 +74,22 @@ object Functions {
     }
 
     /**
-     * Returns the error function of x using Taylor series approximation with 10 terms.
+     * @usesMathjax
+     * Returns the error function of x. If \(|x| \geq 40.0\), x is indistinguishable from the extreme tails of the
+     * error function, so -1.0 or 1.0 is returned. Otherwise, the error function is calculated using the
+     * Gamma function.
      *
      * @param x The number to find the error function of
      * @return The error function of x using Taylor series approximation with 10 terms
      * TODO: Improve accuracy by looking at how Boost (C++) does it
      */
     fun erfExact(x: Double): Double {
-        val terms = 50
-        var result = 0.0
-        var numerator = x
-        var denominator = 1.0
-        var sign = 1
-        for (n in 0 until terms) {
-            val term = sign * (numerator / denominator)
-
-            result += term
-            numerator *= x * x
-            denominator *= (2 * n + 3)
-            sign *= -1
-        }
-
-        return 2.0 / sqrt(Math.PI) * result
+        if (x < -40.0)
+            return -1.0
+        if (x > 40.0)
+            return 1.0
+        val incGamma = incompleteGamma(0.5, x * x)
+        return 2.0 * incGamma / SQRT_PI
     }
 
     /**

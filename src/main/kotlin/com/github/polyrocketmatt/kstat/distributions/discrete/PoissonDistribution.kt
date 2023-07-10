@@ -17,9 +17,9 @@ import kotlin.math.sqrt
 /**
  * Represents the Poisson distribution.
  *
- * @property rate The rate of the distribution.
+ * @param rate The rate of the distribution.
  * @constructor Creates a new Poisson distribution.
- * @throws KStatException if [rate] is not positive.
+ * @throws KStatException If rate is not positive.
  *
  * @see [Poisson Distribution](https://en.wikipedia.org/wiki/Poisson_distribution)
  * @since 1.0.0
@@ -27,7 +27,7 @@ import kotlin.math.sqrt
  */
 @Discrete
 class PoissonDistribution(
-    private val rate: Int = 0
+    private val rate: Int
 ) : DiscreteDistribution(0) {
 
     init {
@@ -46,9 +46,9 @@ class PoissonDistribution(
     /**
      * Returns a sample that is Poisson distributed.
      *
-     * @return a random sample from the distribution
-     * @throws KStatException if the support is empty
-     * @throws KStatException if k is negative
+     * @return A random sample from the distribution.
+     * @throws KStatException If the support is empty.
+     * @throws KStatException If k is negative.
      */
     @Throws(KStatException::class)
     override fun sample(vararg support: Double): Double {
@@ -61,10 +61,10 @@ class PoissonDistribution(
     /**
      * Returns n samples that are Poisson distributed.
      *
-     * @param n the number of samples to return
+     * @param n The number of samples to return
      * @return n random samples from the distribution
-     * @throws KStatException if the support is empty
-     * @throws KStatException if k is negative
+     * @throws KStatException If the support is empty
+     * @throws KStatException If k is negative
      */
     @Throws(KStatException::class)
     override fun sample(n: Int, vararg support: Double): DoubleArray = DoubleArray(n) { sample(*support) }

@@ -19,12 +19,12 @@ import kotlin.math.sqrt
 /**
  * Represents the normal distribution.
  *
- * @property seed The seed to use for the random number generator.
- * @property mean The mean of the distribution.
- * @property stddev The standard deviation of the distribution.
- * @property approx Whether to use Abramowitz and Stegun's approximation for the error function.
+ * @param mean The mean of the distribution.
+ * @param stddev The standard deviation of the distribution.
+ * @param approx Whether to use Abramowitz and Stegun's approximation for the error function.
+ * @param seed The seed to use for the random number generator.
  * @constructor Creates a new normal distribution.
- * @throws KStatException if [stddev] is not positive.
+ * @throws KStatException If stddev is not positive.
  *
  * @see [Normal Distribution](https://en.wikipedia.org/wiki/Normal_distribution)
  * @since 1.0.0
@@ -32,11 +32,13 @@ import kotlin.math.sqrt
  */
 @Continuous
 class NormalDistribution(
-    private val seed: Int,
     private val mean: Double,
     private val stddev: Double,
-    private val approx: Boolean = false
+    private val approx: Boolean = false,
+    private val seed: Int = 0
 ) : ContinuousDistribution(seed) {
+
+    constructor(approx: Boolean = false, seed: Int = 0) : this(0.0, 1.0, approx, seed)
 
     init {
         requireParam(stddev > 0) { "Standard deviation must be positive" }
@@ -51,7 +53,7 @@ class NormalDistribution(
     /**
      * Returns a sample that is normally distributed (using the Box-Muller transform).
      *
-     * @return a random sample from the distribution
+     * @return A random sample from the distribution.
      */
     override fun sample(vararg support: Double): Double {
         val u1 = prng.nextDouble()
@@ -63,8 +65,8 @@ class NormalDistribution(
     /**
      * Returns n samples that are normally distributed.
      *
-     * @param n the number of samples to return
-     * @return n random samples from the distribution
+     * @param n The number of samples to return.
+     * @return n random samples from the distribution.
      */
     override fun sample(n: Int, vararg support: Double): DoubleArray = DoubleArray(n) { sample() }
 
@@ -106,6 +108,8 @@ class NormalDistribution(
     override fun fisherInformation(): DoubleArray = fisher
 
     override fun klDivergence(other: ContinuousDistribution): Double {
+        requireParam(other is NormalDistribution) { "Other distribution must be normal" }
+
         val stddevFract = variance / other.variance()
         val meanDiff = (mean - other.mean()).pow(2.0) / other.variance()
         return 0.5 * (stddevFract + meanDiff - 1.0 + ln(other.variance() / variance))
