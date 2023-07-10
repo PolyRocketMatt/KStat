@@ -18,7 +18,7 @@ import kotlin.math.sqrt
  * @property min The minimum value of the distribution.
  * @property max The maximum value of the distribution.
  * @constructor Creates a new uniform distribution.
- * @throws KStatException if [min] is greater than [max].
+ * @throws KStatException If [min] is greater than [max].
  *
  * @see [Uniform Distribution](https://en.wikipedia.org/wiki/Continuous_uniform_distribution)
  * @since 1.0.0
@@ -26,7 +26,7 @@ import kotlin.math.sqrt
  */
 @Continuous
 class UniformDistribution(
-    private val seed: Int,
+    private val seed: Int = 0,
     private val min: Double,
     private val max: Double
 ) : ContinuousDistribution(seed) {
@@ -43,8 +43,19 @@ class UniformDistribution(
     private val mad = (max - min) / 4.0
     private val fisher = doubleArrayOf(0.0)
 
+    /**
+     * Returns a sample that is uniformly distributed.
+     *
+     * @return A random sample from the distribution.
+     */
     override fun sample(vararg support: Double): Double = min + (max - min) * prng.nextDouble()
 
+    /**
+     * Returns n samples that are uniformly distributed.
+     *
+     * @param n The number of samples to return.
+     * @return n random samples from the distribution.
+     */
     override fun sample(n: Int, vararg support: Double): DoubleArray = DoubleArray(n) { sample() }
 
     override fun pdf(x: Double): SingleRange = if (x in min..max) SingleRange(1.0 / (max - min)) else SingleRange(0.0)

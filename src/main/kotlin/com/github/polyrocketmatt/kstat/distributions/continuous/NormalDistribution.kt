@@ -53,7 +53,7 @@ class NormalDistribution(
     /**
      * Returns a sample that is normally distributed (using the Box-Muller transform).
      *
-     * @return a random sample from the distribution
+     * @return A random sample from the distribution.
      */
     override fun sample(vararg support: Double): Double {
         val u1 = prng.nextDouble()
@@ -65,8 +65,8 @@ class NormalDistribution(
     /**
      * Returns n samples that are normally distributed.
      *
-     * @param n the number of samples to return
-     * @return n random samples from the distribution
+     * @param n The number of samples to return.
+     * @return n random samples from the distribution.
      */
     override fun sample(n: Int, vararg support: Double): DoubleArray = DoubleArray(n) { sample() }
 

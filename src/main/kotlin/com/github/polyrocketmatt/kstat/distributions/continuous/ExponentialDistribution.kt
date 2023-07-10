@@ -5,7 +5,6 @@ import com.github.polyrocketmatt.kstat.distributions.Continuous
 import com.github.polyrocketmatt.kstat.distributions.ContinuousDistribution
 import com.github.polyrocketmatt.kstat.exception.KStatException
 import com.github.polyrocketmatt.kstat.exception.KStatUndefinedException
-import com.github.polyrocketmatt.kstat.range.IRange
 import com.github.polyrocketmatt.kstat.range.SingleRange
 import kotlin.math.exp
 import kotlin.math.ln
@@ -16,7 +15,7 @@ import kotlin.math.sqrt
  *
  * @property lambda The rate parameter.
  * @constructor Creates a new exponential distribution.
- * @throws KStatException if [lambda] is not positive.
+ * @throws KStatException If [lambda] is not positive.
  *
  * @see [Exponential Distribution](https://en.wikipedia.org/wiki/Exponential_distribution)
  * @since 1.0.0
@@ -24,7 +23,7 @@ import kotlin.math.sqrt
  */
 @Continuous
 class ExponentialDistribution(
-    private val seed: Int,
+    private val seed: Int = 0,
     private val lambda: Double
 ) : ContinuousDistribution(seed) {
 
@@ -44,7 +43,7 @@ class ExponentialDistribution(
     /**
      * Returns a sample that is exponentially distributed (using the Inverse transform).
      *
-     * @return a random sample from the distribution
+     * @return A random sample from the distribution.
      */
     override fun sample(vararg support: Double): Double {
         val u = prng.nextDouble()
@@ -54,8 +53,8 @@ class ExponentialDistribution(
     /**
      * Returns n samples that are exponentially distributed.
      *
-     * @param n the number of samples to return
-     * @return n random samples from the distribution
+     * @param n The number of samples to return.
+     * @return n random samples from the distribution.
      */
     override fun sample(n: Int, vararg support: Double): DoubleArray = DoubleArray(n) { sample() }
 
