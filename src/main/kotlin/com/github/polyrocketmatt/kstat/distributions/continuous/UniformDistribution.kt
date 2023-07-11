@@ -97,7 +97,7 @@ class UniformDistribution(
 
     override fun mgf(): (Int) -> Double = { t -> if (t == 0) 1.0 else (exp(t * max) - exp(t * min)) / (t * (max - min)) }
 
-    override fun fisherInformation(): DoubleArray = fisher
+    override fun fisherInformation(n: Int): DoubleArray = fisher
 
     override fun klDivergence(other: ContinuousDistribution): Double {
         requireParam(other is UniformDistribution) { "Other distribution must be uniform" }

@@ -116,7 +116,7 @@ class BinomialDistribution(
 
     override fun mgf(): (Int) -> Double = { t -> (q + p * Math.E.pow(t)).pow(n) }
 
-    override fun fisherInformation(): DoubleArray = fisher
+    override fun fisherInformation(n: Int): DoubleArray = fisher
 
     override fun equals(other: Any?): Boolean {
         if (this === other)                     return true

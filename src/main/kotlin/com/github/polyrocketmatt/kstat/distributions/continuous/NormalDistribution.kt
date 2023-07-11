@@ -105,7 +105,7 @@ class NormalDistribution(
 
     override fun mgf(): (Int) -> Double = { t -> exp(mu * t + variance * t * t / 2.0) }
 
-    override fun fisherInformation(): DoubleArray = fisher
+    override fun fisherInformation(n: Int): DoubleArray = fisher
 
     override fun klDivergence(other: ContinuousDistribution): Double {
         requireParam(other is NormalDistribution) { "Other distribution must be normal" }

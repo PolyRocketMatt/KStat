@@ -60,6 +60,7 @@ Continuous Distributions:
 - Uniform - `UniformDistribution(min: Double, max: Double, seed: Int)`
 - Exponential - `ExponentialDistribution(lambda: Double, seed: Int)`
 - Gamma - `GammaDistribution(alpha: Double, beta: Double, seed: Int)`
+- Weibull - `WeibullDistribution(lambda: Double, k: Double, seed: Int)`
 
 ## Documentation
 

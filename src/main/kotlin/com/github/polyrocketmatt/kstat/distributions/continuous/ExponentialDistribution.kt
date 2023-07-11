@@ -91,7 +91,7 @@ class ExponentialDistribution(
 
     override fun mgf(): (Int) -> Double = { t -> lambda / (lambda - t) }
 
-    override fun fisherInformation(): DoubleArray = fisher
+    override fun fisherInformation(n: Int): DoubleArray = fisher
 
     override fun klDivergence(other: ContinuousDistribution): Double {
         requireParam(other is ExponentialDistribution) { "Other distribution must be exponential" }

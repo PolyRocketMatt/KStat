@@ -129,7 +129,7 @@ class PoissonDistribution(
 
     override fun mgf(): (Int) -> Double = { t -> exp(lambda * (E.pow(t) - 1.0)) }
 
-    override fun fisherInformation(): DoubleArray = fisher
+    override fun fisherInformation(n: Int): DoubleArray = fisher
 
     override fun equals(other: Any?): Boolean {
         if (this === other)                     return true

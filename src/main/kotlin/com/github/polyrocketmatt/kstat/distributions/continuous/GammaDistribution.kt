@@ -23,7 +23,7 @@ import kotlin.math.sqrt
  * @param alpha The shape parameter (α).
  * @param beta The scale parameter (β).
  * @param seed The seed for the random number generator.
- * @constructor Creates a new normal distribution.
+ * @constructor Creates a new gamma distribution.
  * @throws KStatException If α or β are not greater than 0.
  *
  * @see [Normal Distribution](https://en.wikipedia.org/wiki/Gamma_distribution)
@@ -134,7 +134,7 @@ class GammaDistribution(
 
     override fun mgf(): (Int) -> Double = { t -> (1.0 - (t / beta)).pow(-alpha) }
 
-    override fun fisherInformation(): DoubleArray = fisher
+    override fun fisherInformation(n: Int): DoubleArray = fisher
 
     override fun klDivergence(other: ContinuousDistribution): Double {
         requireParam(other is GammaDistribution) { "KL divergence is only defined for identical distributions" }
